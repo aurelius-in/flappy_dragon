@@ -28,6 +28,7 @@ function handleInput() {
             frame.current = (frame.current + 1) % dragonImages.length;
         } 
      isFlapping = true;  // Add this line to set isFlapping to true
+     console.log("handleInput called, isFlapping set to:", isFlapping);  // Debugging line
 }
 
 window.addEventListener('click', handleInput);
@@ -201,11 +202,11 @@ function gameLoop() {
     if (gameStarted) {
         if (isFlapping && gameLoopCounter % (framesPerFlap / dragonFlapSpeed) === 0) {
             frame.current = (frame.current + 1) % dragonImages.length;
+            console.log("Flapping! Frame:", frame.current, "Frames per Flap:", framesPerFlap, "Dragon Flap Speed:", dragonFlapSpeed);  // Debugging line
+        } else {
+            console.log("Not Flapping! isFlapping:", isFlapping, "Game Loop Counter:", gameLoopCounter, "Frames per Flap:", framesPerFlap, "Dragon Flap Speed:", dragonFlapSpeed);  // Debugging line
         }
     }
-    gameLoopCounter++;
-    requestAnimationFrame(gameLoop);
-}
 
 gameLoop();
 window.onload = () => {
