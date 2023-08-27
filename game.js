@@ -205,7 +205,7 @@ function gameLoop() {
         tapToFly.alpha -= 0.01;
     }
 
-   gameLoopCounter++;
+
 
     if (gameStarted) {
 
@@ -213,6 +213,7 @@ function gameLoop() {
         frame.current = (frame.current + 1) % dragonImages.length;
     }
     isFlapping = false; 
+    gameLoopCounter++;
     requestAnimationFrame(gameLoop);
 }
 }
