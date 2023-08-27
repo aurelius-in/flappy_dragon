@@ -34,8 +34,8 @@ function handleInput() {
 window.addEventListener('click', function() {
     gameStarted = true;
     console.log("Screen clicked, gameStarted set to:", gameStarted);  // Debugging line
+    handleInput();
 });
-window.addEventListener('click', handleInput);
 window.addEventListener('touchstart', handleInput);
 window.addEventListener('keydown', (e) => {
     if (e.code === 'Space') 
