@@ -27,8 +27,14 @@ function handleInput() {
     if (isFlapping && gameLoopCounter % framesPerFlap === 0) {
             frame.current = (frame.current + 1) % dragonImages.length;
         } 
-     isFlapping = true;  // Add this line to set isFlapping to true
-     console.log("handleInput called, isFlapping set to:", isFlapping);  // Debugging line
+  isFlapping = true;  // Set isFlapping to true when tapped
+    console.log("handleInput called, isFlapping set to:", isFlapping);  // Debugging line
+
+    // Set isFlapping back to false after 12 frames have passed
+    setTimeout(() => {
+        isFlapping = false;
+        console.log("Stopped flapping, isFlapping set to:", isFlapping);  // Debugging line
+    }, framesPerFlap / dragonFlapSpeed * 12);  // 12 frames
 }
 
 window.addEventListener('click', function() {
