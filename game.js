@@ -216,7 +216,7 @@ function gameLoop() {
     isFlapping = false; 
     requestAnimationFrame(gameLoop);
 }
-   
+}
 gameLoop();
 window.onload = () => {
     setTimeout(() => {
