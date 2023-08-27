@@ -52,7 +52,10 @@ function createArrowObstacle(x, y) {
 let lastStrikeTime = 0;  // To keep track of the last time a lightning strike was created
 let fadeAlpha = 0;  // Alpha value for the fade effect
 
-function createLightningStrikeObstacle(x, y, dragonX, dragonY) {
+function createLightningStrikeObstacle(x, y, dragonX, dragonY, canvas, context) {
+    let lastStrikeTime = 0;  // To keep track of the last time a lightning strike was created
+    let fadeAlpha = 0;  // Alpha value for the fade effect
+
     // Randomize the x position within a certain range
     let randomX = Math.random() * (canvas.width - 50) + 50;
 
@@ -89,7 +92,7 @@ function createLightningStrikeObstacle(x, y, dragonX, dragonY) {
                 fadeAlpha = Math.max(0, fadeAlpha - 0.02);  // Gradually reduce the alpha value
             }
         },
-        draw: function(context) {
+        draw: function() {
             // Make the lightning strike bigger
             context.fillStyle = 'yellow';
             context.fillRect(this.x, this.y, 10, 60);  // Increased size
