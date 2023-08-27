@@ -217,13 +217,10 @@ function gameLoop() {
    gameLoopCounter++;
 
     if (gameStarted) {
-        if (gameLoopCounter % framesPerFlap === 0) {
+
+        if (gameLoopCounter % ( framesPerFlap / 2) === 0) {
             frame.current = (frame.current + 1) % dragonImages.length;
-        }
-    } else {
-        if (gameLoopCounter % framesPerFlap === 0) {
-            frame.current = (frame.current + 1) % dragonImages.length;
-        }
+        
     }
     requestAnimationFrame(gameLoop);
 }
