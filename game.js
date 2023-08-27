@@ -31,6 +31,10 @@ function handleInput() {
      console.log("handleInput called, isFlapping set to:", isFlapping);  // Debugging line
 }
 
+window.addEventListener('click', function() {
+    gameStarted = true;
+    console.log("Screen clicked, gameStarted set to:", gameStarted);  // Debugging line
+});
 window.addEventListener('click', handleInput);
 window.addEventListener('touchstart', handleInput);
 window.addEventListener('keydown', (e) => {
