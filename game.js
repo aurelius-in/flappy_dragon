@@ -211,7 +211,6 @@ function gameLoop() {
 
         if (isFlapping && gameLoopCounter % framesPerFlap === 0) {
         frame.current = (frame.current + 1) % dragonImages.length;
-        framesPerFlap = Math.floor(Math.random() * 11) + 20;
     }
     isFlapping = false; 
     requestAnimationFrame(gameLoop);
