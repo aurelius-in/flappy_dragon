@@ -28,7 +28,7 @@ function handleInput() {
             frame.current = (frame.current + 1) % dragonImages.length;
         } 
      isFlapping = false; // Reset the flag after updating the frame
-    
+     isFlapping = true;  // Add this line to set isFlapping to true
 }
 
 window.addEventListener('click', handleInput);
@@ -204,7 +204,6 @@ function gameLoop() {
             frame.current = (frame.current + 1) % dragonImages.length;
             framesPerFlap = Math.floor(Math.random() * 11) + 20;
         }
-        isFlapping = false;
     }
     gameLoopCounter++;
     requestAnimationFrame(gameLoop);
