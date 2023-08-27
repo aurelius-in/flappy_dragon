@@ -138,14 +138,14 @@ function collisionDetected(dragon, obstacle) {
         dragonCollisionArea.y < obstacleCollisionArea.y + obstacleCollisionArea.height &&
         dragonCollisionArea.y + dragonCollisionArea.height > obstacleCollisionArea.y
     );
-}
+}.
 
 let gravity = 0.3; // Gravity constant
 
 function update() {
+    console.log(canvas, context);  // Add this line for debugging
     let lightningStartX = canvas.width / 2; // Start from the center of the canvas width 
     let lightningStartY = 0; // Start from the top of the canvas
-    // Make sure you have access to 'canvas' and 'context' where this line is
     let lightningStrike = createLightningStrikeObstacle(lightningStartX, lightningStartY, dragon.x + 20, dragon.y - 20, canvas, context);
     
     if (gameStarted) {
