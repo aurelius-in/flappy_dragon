@@ -26,7 +26,6 @@ function handleInput() {
     dragon.y += dragon.velocity;
     if (isFlapping && gameLoopCounter % framesPerFlap === 0) {
             frame.current = (frame.current + 1) % dragonImages.length;
-            framesPerFlap = Math.floor(Math.random() * 11) + 20;
         } 
      isFlapping = false; // Reset the flag after updating the frame
     
@@ -196,14 +195,6 @@ function levelEnd() {
     }
 }
 
-if (!gameStarted) {
-    framesPerFlap = 90;
-
-    if (gameLoopCounter % 30 === 0 && framesPerFlap < 40) {
-        framesPerFlap += 2;
-    }
-}
-
 
 function gameLoop() {
     update();
@@ -218,10 +209,11 @@ function gameLoop() {
 
     if (gameStarted) {
 
-        if (gameLoopCounter % ( framesPerFlap / 2) === 0) {
-            frame.current = (frame.current + 1) % dragonImages.length;
-        
+        if (isFlapping && gameLoopCounter % framesPerFlap === 0) {
+        frame.current = (frame.current + 1) % dragonImages.length;
+        framesPerFlap = Math.floor(Math.random() * 11) + 20;
     }
+    isFlapping = false; 
     requestAnimationFrame(gameLoop);
 }
    
