@@ -195,28 +195,21 @@ function levelEnd() {
     }
 }
 
-
 function gameLoop() {
     update();
     draw();
-    // Removed the incorrect call to collisionDetected
-
-    if (tapToFly.alpha > 0) {
-        tapToFly.alpha -= 0.01;
-    }
-
-
 
     if (gameStarted) {
-
-        if (isFlapping && gameLoopCounter % framesPerFlap === 0) {
-        frame.current = (frame.current + 1) % dragonImages.length;
+        if (isFlapping && gameLoopCounter % (framesPerFlap / dragonFlapSpeed) === 0) {
+            frame.current = (frame.current + 1) % dragonImages.length;
+            framesPerFlap = Math.floor(Math.random() * 11) + 20;
+        }
+        isFlapping = false;
     }
-    isFlapping = false; 
     gameLoopCounter++;
     requestAnimationFrame(gameLoop);
 }
-}
+
 gameLoop();
 window.onload = () => {
     setTimeout(() => {
