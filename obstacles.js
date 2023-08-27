@@ -62,8 +62,8 @@ function createLightningStrikeObstacle(x, y, dragonX, dragonY, canvas, context) 
     return {
         x: randomX,
         y: y,
-        targetX: dragonX,
-        targetY: dragonY,
+        targetX: dragonX + 20,
+        targetY: dragonY + 20,
         zigzagCounter: 0,
         update: function() {
             // Update periodically based on the game's time
