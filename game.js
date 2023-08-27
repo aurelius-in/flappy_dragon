@@ -207,7 +207,7 @@ function gameLoop() {
             console.log("Not Flapping! isFlapping:", isFlapping, "Game Loop Counter:", gameLoopCounter, "Frames per Flap:", framesPerFlap, "Dragon Flap Speed:", dragonFlapSpeed);  // Debugging line
         }
     }
-
+}
 gameLoop();
 window.onload = () => {
     setTimeout(() => {
