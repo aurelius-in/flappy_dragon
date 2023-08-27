@@ -213,8 +213,12 @@ function gameLoop() {
             console.log("Not Flapping! isFlapping:", isFlapping, "Game Loop Counter:", gameLoopCounter, "Frames per Flap:", framesPerFlap, "Dragon Flap Speed:", dragonFlapSpeed);  // Debugging line
         }
     }
+
+    requestAnimationFrame(gameLoop);  // Keep the game loop running
 }
-gameLoop();
+
+gameLoop();  // Initial call to start the game loop
+
 window.onload = () => {
     setTimeout(() => {
         tapToFly.alpha = 0;
