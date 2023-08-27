@@ -201,7 +201,6 @@ function gameLoop() {
     if (gameStarted) {
         if (isFlapping && gameLoopCounter % (framesPerFlap / dragonFlapSpeed) === 0) {
             frame.current = (frame.current + 1) % dragonImages.length;
-            framesPerFlap = Math.floor(Math.random() * 11) + 20;
         }
     }
     gameLoopCounter++;
