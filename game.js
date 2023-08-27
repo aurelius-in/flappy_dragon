@@ -27,7 +27,6 @@ function handleInput() {
     if (isFlapping && gameLoopCounter % framesPerFlap === 0) {
             frame.current = (frame.current + 1) % dragonImages.length;
         } 
-     isFlapping = false; // Reset the flag after updating the frame
      isFlapping = true;  // Add this line to set isFlapping to true
 }
 
