@@ -1,3 +1,5 @@
+import { canvas, context } from './init.js';  // Import canvas and context from init.js
+
 // Bat Swarms
 function createBatSwarmObstacle(x, y) {
     return {
