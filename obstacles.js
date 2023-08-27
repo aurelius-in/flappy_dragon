@@ -49,16 +49,54 @@ function createArrowObstacle(x, y) {
 }
 
 // Lightning Strikes
-function createLightningStrikeObstacle(x, y) {
+let lastStrikeTime = 0;  // To keep track of the last time a lightning strike was created
+let fadeAlpha = 0;  // Alpha value for the fade effect
+
+function createLightningStrikeObstacle(x, y, dragonX, dragonY) {
+    // Randomize the x position within a certain range
+    let randomX = Math.random() * (canvas.width - 50) + 50;
+
     return {
-        x: x,
+        x: randomX,
         y: y,
+        targetX: dragonX,
+        targetY: dragonY,
+        zigzagCounter: 0,
         update: function() {
-            this.y += 5;
+            // Update periodically based on the game's time
+            let currentTime = Date.now();
+            if (currentTime - lastStrikeTime > 5000) {  // 5 seconds
+                lastStrikeTime = currentTime;
+
+                // Targeted strike towards the dragon's position
+                let dx = this.targetX - this.x;
+                let dy = this.targetY - this.y;
+                let distance = Math.sqrt(dx * dx + dy * dy);
+
+                // Normalize the distance and move towards the dragon
+                this.x += (dx / distance) * 2;
+                this.y += (dy / distance) * 2;
+
+                // Add zigzag movement
+                this.x += Math.sin(this.zigzagCounter) * 10;
+                this.zigzagCounter += 0.1;
+            }
+
+            // Trigger the fade effect
+            if (currentTime - lastStrikeTime < 200) {  // Within 200ms of the strike
+                fadeAlpha = 0.7;  // Set a high alpha value for a bright flash
+            } else {
+                fadeAlpha = Math.max(0, fadeAlpha - 0.02);  // Gradually reduce the alpha value
+            }
         },
         draw: function(context) {
+            // Make the lightning strike bigger
             context.fillStyle = 'yellow';
-            context.fillRect(this.x, this.y, 5, 30);
+            context.fillRect(this.x, this.y, 10, 60);  // Increased size
+
+            // Draw the fade effect
+            context.fillStyle = `rgba(255, 255, 255, ${fadeAlpha})`;  // White with alpha
+            context.fillRect(0, 0, canvas.width, canvas.height);  // Cover the entire canvas
         }
     };
 }
