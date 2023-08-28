@@ -147,7 +147,7 @@ function update() {
             }, 1000);
         }
     }
-
+});
         // Update perch
         perch.x -= 1;  // Set the speed to match the obstacle speed
         perch.update();
