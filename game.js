@@ -81,16 +81,15 @@ function createObstacle() {
     obstacleSpawnTime *= 0.999;
 }
 
-
 function collisionDetected(dragon, obstacle) {
-    const boundaryReductionX = dragon.width * 0.05;
-    const boundaryReductionY = dragon.height * 0.1;
+    // const boundaryReductionX = dragon.width * 0.05;
+    // const boundaryReductionY = dragon.height * 0.1;
 
     const dragonCollisionArea = {
-        x: dragon.x + boundaryReductionX,
-        y: dragon.y + boundaryReductionY,
-        width: dragon.width - (boundaryReductionX * 2),
-        height: dragon.height - (boundaryReductionY * 2)
+        x: dragon.x, // + boundaryReductionX,
+        y: dragon.y, // + boundaryReductionY,
+        width: dragon.width, // - (boundaryReductionX * 2),
+        height: dragon.height // - (boundaryReductionY * 2)
     };
 
     const obstacleCollisionArea = {
@@ -100,13 +99,21 @@ function collisionDetected(dragon, obstacle) {
         height: obstacle.height
     };
 
-    return (
-    dragonCollisionArea.x < obstacleCollisionArea.x + obstacleCollisionArea.width &&
-    dragonCollisionArea.x + dragonCollisionArea.width > obstacleCollisionArea.x &&
-    dragonCollisionArea.y < obstacleCollisionArea.y + obstacleCollisionArea.height &&
-    dragonCollisionArea.y + dragonCollisionArea.height > obstacleCollisionArea.y
-);
+    const isCollision = (
+        dragonCollisionArea.x < obstacleCollisionArea.x + obstacleCollisionArea.width &&
+        dragonCollisionArea.x + dragonCollisionArea.width > obstacleCollisionArea.x &&
+        dragonCollisionArea.y < obstacleCollisionArea.y + obstacleCollisionArea.height &&
+        dragonCollisionArea.y + dragonCollisionArea.height > obstacleCollisionArea.y
+    );
+
+    if (isCollision) {
+        console.log(`Collision detected at x: ${dragonCollisionArea.x}, y: ${dragonCollisionArea.y}`);
+        console.log(`Collided with obstacle: ${obstacle.type}`);
+    }
+
+    return isCollision;
 }
+
 let gravity = 0.3; // Gravity constant
 
 function update() {
