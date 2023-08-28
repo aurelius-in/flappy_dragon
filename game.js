@@ -79,6 +79,8 @@ function createObstacle() {
     obstacles.push(obstacle);
     topObstacle = !topObstacle;
     obstacleSpawnTime *= 0.999;
+    obstacleY = Math.random() * (centerDistance - minDistance) + (topObstacle ? minDistance : centerDistance);
+    console.log(`Created obstacle of type: ${randomType} at y-position: ${obstacleY}`);
 }
 
 function collisionDetected(dragon, obstacle) {
