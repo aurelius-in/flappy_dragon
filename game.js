@@ -21,12 +21,11 @@ function handleInput() {
     if (!gameStarted) {
         gameStarted = true;
     }
+    
     dragon.velocity = -jump; // Make the dragon go up
     dragon.y += dragon.velocity;
-    if (isFlapping && gameLoopCounter % framesPerFlap === 0) {
-            frame.current = (frame.current + 1) % dragonImages.length;
-        } 
-  isFlapping = true;  // Set isFlapping to true when tapped
+    
+    isFlapping = true;  // Set isFlapping to true when tapped
     console.log("handleInput called, isFlapping set to:", isFlapping);  // Debugging line
 
     // Set isFlapping back to false after 12 frames have passed
@@ -36,6 +35,7 @@ function handleInput() {
     }, framesPerFlap / dragonFlapSpeed * 12);  // 12 frames
 }
 
+// Event listeners for clicks and keydowns
 window.addEventListener('click', function() {
     gameStarted = true;
     console.log("Screen clicked, gameStarted set to:", gameStarted);  // Debugging line
@@ -47,7 +47,6 @@ window.addEventListener('keydown', (e) => {
         handleInput();
 });
 
-function resetGame() {
 function resetGame() {
     Object.assign(obstacles, { length: 0 }, perch, { x: 50 }, dragon, { x: dragonStartX, y: dragonStartY, velocity: 0, scale: 1, alpha: 1 }, frame, { current: 0 }, backgrounds, { bgX: 0, fgX: 0, bgbgX: 0 }, screenFade, { alpha: 0 });
     gameStarted = false;
