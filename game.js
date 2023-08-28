@@ -110,7 +110,7 @@ function update() {
     let lightningStartY = 0; // Start from the top of the canvas
     let lightningStrike = createLightningStrikeObstacle(lightningStartX, lightningStartY, dragon.x + 20, dragon.y - 20, canvas, context);
     
-    if (gameStarted) {
+    if (gameStarted && !levelEnding) {
         // Apply gravity to dragon
         dragon.velocity += gravity;
         dragon.y += dragon.velocity;
@@ -118,12 +118,10 @@ function update() {
         // Update dragon
         dragon.update();
 
-        // Update backgrounds to make the dragon appear to move forward
         backgrounds.fgX -= 0.3; // slow
         backgrounds.bgX -= 0.2; // slower
         backgrounds.bgbgX -= 0.1; // slowest
-
-        
+ 
         // Update obstacles
         obstacles.forEach((obstacle, index) => {
             obstacle.x -= 1;  // Obstacle speed
@@ -161,10 +159,20 @@ if (backgrounds.fgX + bg.width <= canvas.width) {
     levelEnd();
 }
 
+let levelEnding = false;  // Add this flag to indicate when the level is ending
+
 function levelEnd() {
+    levelEnding = true;  // Set the flag to true
+    
     dragon.scale += 0.005;
     dragon.alpha -= 0.005;
     screenFade.alpha += 0.01;
+
+    // Make the dragon fly to the center of the screen
+    const targetX = canvas.width / 2 - dragon.width / 2;
+    const targetY = canvas.height / 2 - dragon.height / 2;
+    dragon.x += (targetX - dragon.x) * 0.05;
+    dragon.y += (targetY - dragon.y) * 0.05;
 
     if (screenFade.alpha >= 1) {
         setTimeout(resetGame, 2000);
