@@ -52,7 +52,6 @@ function resetGame() {
     Object.assign(dragon, { x: perch.x, y: perchY - 125, velocity: 0, scale: 1, alpha: 1 });
     gameStarted = false;
     obstacleSpawnTime = 4000;
-    endGameTime = 0;
     bg.width = canvas.height * 4;
     lifeBar.segments = 10;
 }
