@@ -133,12 +133,11 @@ function collisionDetected(dragon, obstacle) {
     };
 
     return (
-        dragonCollisionArea.x < obstacleCollisionArea.x + obstacleCollisionArea.width &&
-        dragonCollisionArea.x + dragonCollisionArea.width > obstacleCollisionArea.x &&
-        dragonCollisionArea.y < obstacleCollisionArea.y + obstacleCollisionArea.height &&
-        dragonCollisionArea.y + dragonCollisionArea.height > obstacleCollisionArea.y
-    );
-}.
+    dragonCollisionArea.x < obstacleCollisionArea.x + obstacleCollisionArea.width &&
+    dragonCollisionArea.x + dragonCollisionArea.width > obstacleCollisionArea.x &&
+    dragonCollisionArea.y < obstacleCollisionArea.y + obstacleCollisionArea.height &&
+    dragonCollisionArea.y + dragonCollisionArea.height > obstacleCollisionArea.y
+)
 
 let gravity = 0.3; // Gravity constant
 
