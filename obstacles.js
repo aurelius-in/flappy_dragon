@@ -74,30 +74,34 @@ function createLightningStrikeObstacle(canvas, context) {
             }
 
             if (flashCounter > 0) {
-                fadeAlpha = Math.max(0, fadeAlpha - 4);  // Faster fade
+                fadeAlpha = Math.max(0, fadeAlpha - 0.25);  // Faster fade
                 if (fadeAlpha === 0) {
                     flashCounter--;
-                    fadeAlpha = 1;  // Full white flash
+                    if (flashCounter > 0) {
+                        fadeAlpha = 1;  // Full white flash
+                    }
                 }
             }
         },
         draw: function() {
-            context.fillStyle = `rgba(255, 255, 255, ${fadeAlpha})`;  // Screen flash
-            context.fillRect(0, 0, canvas.width, canvas.height);
+            if (flashCounter > 0) {
+                context.fillStyle = `rgba(255, 255, 255, ${fadeAlpha})`;  // Screen flash
+                context.fillRect(0, 0, canvas.width, canvas.height);
 
-            context.strokeStyle = `rgba(255, 255, 0, ${fadeAlpha})`;  // Lightning color
-            context.lineWidth = 6;  // 3x thicker
-            context.beginPath();
-            context.moveTo(this.x, this.y);
+                context.strokeStyle = `rgba(255, 255, 0, ${fadeAlpha})`;  // Lightning color
+                context.lineWidth = 9;  // 3x thicker
+                context.beginPath();
+                context.moveTo(this.x, this.y);
 
-            // Create zig-zag shape
-            for (let i = 0; i < 10; i++) {
-                let x = this.x - 20 * i;
-                let y = this.y + 10 * i;
-                context.lineTo(x + Math.sin(this.zigzagCounter + i) * 5, y);
+                // Create zig-zag shape
+                for (let i = 0; i < 10; i++) {
+                    let x = this.x - 20 * i;
+                    let y = this.y + 10 * i;
+                    context.lineTo(x + Math.sin(this.zigzagCounter + i) * 5, y);
+                }
+
+                context.stroke();
             }
-
-            context.stroke();
         }
     };
 }
