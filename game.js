@@ -67,7 +67,7 @@ function createObstacle() {
 
     const obstacle = {
         'arrow': () => createArrowObstacle(canvas.width, obstacleY),
-        'lightningStrike': () => createLightningStrikeObstacle(canvas, context),
+        'lightningStrike': () => createLightningStrikeObstacle(),
         'batSwarm': () => createBatSwarmObstacle(canvas.width, obstacleY),
         'tornado': () => createTornadoObstacle(canvas.width, obstacleY),
         'wraith': () => createWraithObstacle(canvas.width, obstacleY),
