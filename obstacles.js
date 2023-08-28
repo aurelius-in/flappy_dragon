@@ -51,11 +51,12 @@ function createArrowObstacle(x, y) {
 }
 
 // Lightning Strikes
-function createLightningStrikeObstacle(canvas, context) {
-    let lastStrikeTime = Date.now();
-    let fadeAlpha = 0;
-    let flashCounter = 0;
+// Lightning Strikes
+let lastStrikeTime = 0;  // Initialize to 0
+let fadeAlpha = 0;  // Initialize to 0
+let flashCounter = 0;  // Initialize to 0
 
+function createLightningStrikeObstacle(canvas, context) {
     return {
         x: (canvas.width / 2) + (Math.random() * 50 - 25),  // Random position near top-middle
         y: Math.random() * 50,  // Random position near the top
@@ -65,16 +66,16 @@ function createLightningStrikeObstacle(canvas, context) {
         update: function() {
             let currentTime = Date.now();
 
-            if (currentTime - lastStrikeTime > 10000) {  // 10 seconds
+            if (currentTime - lastStrikeTime > 11000) {  // 11 seconds
                 lastStrikeTime = currentTime;
-                flashCounter = 2;
+                flashCounter = 1;  // Only one flash
             }
 
             if (flashCounter > 0) {
-                fadeAlpha = Math.max(0, fadeAlpha - 0.02);
+                fadeAlpha = Math.max(0, fadeAlpha - 0.1);  // Faster fade
                 if (fadeAlpha === 0) {
                     flashCounter--;
-                    fadeAlpha = 0.7;
+                    fadeAlpha = 1;  // Full white flash
                 }
             }
         },
@@ -98,7 +99,6 @@ function createLightningStrikeObstacle(canvas, context) {
         }
     };
 }
-
 
 // Tornadoes
 function createTornadoObstacle(x, y) {
