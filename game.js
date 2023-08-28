@@ -117,7 +117,11 @@ function collisionDetected(dragon, obstacle) {
 
 let gravity = 0.3; // Gravity constant
 
+let lastObstacleTime = 0;
+
 function update() {
+    const currentTime = Date.now();
+
     if (gameStarted && !levelEnding) {
         // Apply gravity to dragon
         dragon.velocity += gravity;
@@ -160,8 +164,9 @@ function update() {
         perch.update();
 
         // Create new obstacles
-        if (gameLoopCounter % 100 === 0) { // Every 100 frames
+        if (currentTime - lastObstacleTime >= 3000) { // Every 3000 milliseconds (3 seconds)
             createObstacle();
+            lastObstacleTime = currentTime;
         }
     }
 }
