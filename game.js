@@ -48,70 +48,34 @@ window.addEventListener('keydown', (e) => {
 });
 
 function resetGame() {
-    obstacles.length = 0;
-    perch.x = 50;
-    dragon.x = dragonStartX;
-    dragon.y = dragonStartY;
-    dragon.velocity = 0;
+function resetGame() {
+    Object.assign(obstacles, { length: 0 }, perch, { x: 50 }, dragon, { x: dragonStartX, y: dragonStartY, velocity: 0, scale: 1, alpha: 1 }, frame, { current: 0 }, backgrounds, { bgX: 0, fgX: 0, bgbgX: 0 }, screenFade, { alpha: 0 });
     gameStarted = false;
-    frame.current = 0; // Fixed this line
-    backgrounds.bgX = 0;
-    backgrounds.fgX = 0;
-    backgrounds.bgbgX = 0;
     obstacleSpawnTime = 4000;
     endGameTime = 0;
-    dragon.scale = 1;
-    dragon.alpha = 1;
-    screenFade.alpha = 0;
     bg.width = canvas.height * 4;
 }
 
 function createObstacle() {
-    const obstacleType = [
-        'arrow',
-        'lightningStrike',
-        'batSwarm',
-        'tornado',
-        'wraith',
-        'zombieDragon',
-        'thundercloud',
-        'fireball'
-    ];
+    const obstacleType = ['arrow', 'lightningStrike', 'batSwarm', 'tornado', 'wraith', 'zombieDragon', 'thundercloud', 'fireball'];
     const randomType = obstacleType[Math.floor(Math.random() * obstacleType.length)];
+    const minDistance = canvas.height * 0.1, centerDistance = canvas.height * 0.5;
+    obstacleY = Math.random() * (centerDistance - minDistance) + (topObstacle ? minDistance : centerDistance);
 
-    const minDistance = canvas.height * 0.1;
-    const centerDistance = canvas.height * 0.5;
-
-    if (topObstacle) {
-        obstacleY = Math.random() * (centerDistance - minDistance) + minDistance;
-    } else {
-        obstacleY = Math.random() * (centerDistance - minDistance) + centerDistance;
-    }
-
-    let obstacle;
-    switch (randomType) {
-        case 'arrow': obstacle = createArrowObstacle(canvas.width, obstacleY);
-            break;
-        case 'lightningStrike': obstacle = createLightningStrikeObstacle(canvas.width, obstacleY);
-            break;
-        case 'batSwarm': obstacle = createBatSwarmObstacle(canvas.width, obstacleY);
-            break;
-        case 'tornado': obstacle = createTornadoObstacle(canvas.width, obstacleY);
-            break;
-        case 'wraith': obstacle = createWraithObstacle(canvas.width, obstacleY);
-            break;
-        case 'zombieDragon': obstacle = createZombieDragonObstacle(canvas.width, obstacleY);
-            break;
-        case 'thundercloud': obstacle = createThundercloudObstacle(canvas.width, obstacleY);
-            break;
-        case 'fireball': obstacle = createFireballObstacle(canvas.width, obstacleY);
-            break;
-    }
+    const obstacle = {
+        'arrow': createArrowObstacle,
+        'lightningStrike': createLightningStrikeObstacle,
+        'batSwarm': createBatSwarmObstacle,
+        'tornado': createTornadoObstacle,
+        'wraith': createWraithObstacle,
+        'zombieDragon': createZombieDragonObstacle,
+        'thundercloud': createThundercloudObstacle,
+        'fireball': createFireballObstacle
+    }[randomType](canvas.width, obstacleY);
 
     obstacles.push(obstacle);
     topObstacle = !topObstacle;
     obstacleSpawnTime *= 0.999;
-    
 }
 
 function collisionDetected(dragon, obstacle) {
