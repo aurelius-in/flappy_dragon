@@ -63,7 +63,28 @@ function createObstacle() {
 
     const obstacle = {
         'arrow': createArrowObstacle,
-        'lightningStrike': createLightningStrikeObstacle,
+function createObstacle() {
+    const obstacleType = ['arrow', 'lightningStrike', 'batSwarm', 'tornado', 'wraith', 'zombieDragon', 'thundercloud', 'fireball'];
+    const randomType = obstacleType[Math.floor(Math.random() * obstacleType.length)];
+    const minDistance = canvas.height * 0.1, centerDistance = canvas.height * 0.5;
+    obstacleY = Math.random() * (centerDistance - minDistance) + (topObstacle ? minDistance : centerDistance);
+
+    const obstacle = {
+        'arrow': () => createArrowObstacle(canvas.width, obstacleY),
+        'lightningStrike': () => createLightningStrikeObstacle(canvas, context), 
+        'batSwarm': () => createBatSwarmObstacle(canvas.width, obstacleY),
+        'tornado': () => createTornadoObstacle(canvas.width, obstacleY),
+        'wraith': () => createWraithObstacle(canvas.width, obstacleY),
+        'zombieDragon': () => createZombieDragonObstacle(canvas.width, obstacleY),
+        'thundercloud': () => createThundercloudObstacle(canvas.width, obstacleY),
+        'fireball': () => createFireballObstacle(canvas.width, obstacleY)
+    }[randomType]();
+
+    obstacles.push(obstacle);
+    topObstacle = !topObstacle;
+    obstacleSpawnTime *= 0.999;
+}
+
         'batSwarm': createBatSwarmObstacle,
         'tornado': createTornadoObstacle,
         'wraith': createWraithObstacle,
