@@ -64,6 +64,8 @@ function createObstacle() {
     const centerDistance = canvas.height * 0.5;
     
     obstacleY = Math.random() * (centerDistance - minDistance) + (topObstacle ? minDistance : centerDistance);
+    obstacleY = Math.min(obstacleY, canvas.height - 100);  // Limit to within canvas height
+
 
     const obstacle = {
         'arrow': () => createArrowObstacle(canvas.width, obstacleY),
