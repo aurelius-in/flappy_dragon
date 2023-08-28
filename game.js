@@ -137,7 +137,7 @@ function collisionDetected(dragon, obstacle) {
     dragonCollisionArea.x + dragonCollisionArea.width > obstacleCollisionArea.x &&
     dragonCollisionArea.y < obstacleCollisionArea.y + obstacleCollisionArea.height &&
     dragonCollisionArea.y + dragonCollisionArea.height > obstacleCollisionArea.y
-)
+);
 
 let gravity = 0.3; // Gravity constant
 
