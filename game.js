@@ -75,20 +75,7 @@ function createObstacle() {
     obstacles.push(obstacle);
     topObstacle = !topObstacle;
     obstacleSpawnTime *= 0.999;
-}
-
-        'batSwarm': createBatSwarmObstacle,
-        'tornado': createTornadoObstacle,
-        'wraith': createWraithObstacle,
-        'zombieDragon': createZombieDragonObstacle,
-        'thundercloud': createThundercloudObstacle,
-        'fireball': createFireballObstacle
-    }[randomType](canvas.width, obstacleY);
-
-    obstacles.push(obstacle);
-    topObstacle = !topObstacle;
-    obstacleSpawnTime *= 0.999;
-}
+};
 
 function collisionDetected(dragon, obstacle) {
     const boundaryReductionX = dragon.width * 0.05;
