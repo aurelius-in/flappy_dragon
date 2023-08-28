@@ -56,14 +56,17 @@ function resetGame() {
 }
 
 function createObstacle() {
-    obstacleY = Math.random() * (centerDistance - minDistance) + (topObstacle ? minDistance : centerDistance);
     const obstacleType = ['arrow', 'lightningStrike', 'batSwarm', 'tornado', 'wraith', 'zombieDragon', 'thundercloud', 'fireball'];
     const randomType = obstacleType[Math.floor(Math.random() * obstacleType.length)];
-    const minDistance = canvas.height * 0.1, centerDistance = canvas.height * 0.5;
+    
+    const minDistance = canvas.height * 0.1;
+    const centerDistance = canvas.height * 0.5;
+    
+    obstacleY = Math.random() * (centerDistance - minDistance) + (topObstacle ? minDistance : centerDistance);
 
     const obstacle = {
         'arrow': () => createArrowObstacle(canvas.width, obstacleY),
-        'lightningStrike': () => createLightningStrikeObstacle(canvas, context), 
+        'lightningStrike': () => createLightningStrikeObstacle(canvas, context),
         'batSwarm': () => createBatSwarmObstacle(canvas.width, obstacleY),
         'tornado': () => createTornadoObstacle(canvas.width, obstacleY),
         'wraith': () => createWraithObstacle(canvas.width, obstacleY),
@@ -75,7 +78,8 @@ function createObstacle() {
     obstacles.push(obstacle);
     topObstacle = !topObstacle;
     obstacleSpawnTime *= 0.999;
-};
+}
+
 
 function collisionDetected(dragon, obstacle) {
     const boundaryReductionX = dragon.width * 0.05;
