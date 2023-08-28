@@ -51,59 +51,53 @@ function createArrowObstacle(x, y) {
 }
 
 // Lightning Strikes
-let lastStrikeTime = 0;  // Initialize to 0
-let fadeAlpha = 0;  // Initialize to 0
-let flashCounter = 0;  // Initialize to 0
-let levelStartedTime = Date.now();  // Initialize to current time
+let lastStrikeTime = 0;
+let fadeAlpha = 0;
+let flashCounter = 0;
+let levelStartedTime = Date.now();
+let struckThisLevel = false;
 
-function createLightningStrikeObstacle(canvas, context) {
-    return {
-        x: (canvas.width / 2),  // Start from top-center
-        y: 0,  // Start from the top
-        width: 30,  // 3x thicker
-        height: 200,
-        zigzagCounter: 0,
-        struckThisLevel: false,  // New variable to track if lightning has struck this level
-        update: function() {
-            let currentTime = Date.now();
-
-            if (!this.struckThisLevel && currentTime - levelStartedTime > 10000 && currentTime - lastStrikeTime > 11000) {
-                lastStrikeTime = currentTime;
-                flashCounter = 2;  // Two flashes
-                this.struckThisLevel = true;  // Mark as struck for this level
-            }
-
-            if (flashCounter > 0) {
-                fadeAlpha = Math.max(0, fadeAlpha - 0.25);  // Faster fade
-                if (fadeAlpha === 0) {
-                    flashCounter--;
-                    if (flashCounter > 0) {
-                        fadeAlpha = 1;  // Full white flash
-                    }
-                }
-            }
-        },
-        draw: function() {
-            if (flashCounter > 0) {
-                context.fillStyle = `rgba(255, 255, 255, ${fadeAlpha})`;  // Screen flash
-                context.fillRect(0, 0, canvas.width, canvas.height);
-
-                context.strokeStyle = `rgba(255, 255, 0, ${fadeAlpha})`;  // Lightning color
-                context.lineWidth = 9;  // 3x thicker
-                context.beginPath();
-                context.moveTo(this.x, this.y);
-
-                // Create zig-zag shape
-                for (let i = 0; i < 10; i++) {
-                    let x = this.x - 20 * i;
-                    let y = this.y + 10 * i;
-                    context.lineTo(x + Math.sin(this.zigzagCounter + i) * 5, y);
-                }
-
-                context.stroke();
-            }
+function createLightningStrikeObstacle() {
+  return {
+    x: canvas.width / 2,
+    y: 0,
+    width: 9,
+    height: 200,
+    zigzagCounter: 0,
+    update: function() {
+      let currentTime = Date.now();
+      if (!struckThisLevel && currentTime - levelStartedTime > 10000 && currentTime - lastStrikeTime > 11000) {
+        lastStrikeTime = currentTime;
+        flashCounter = 2;
+        struckThisLevel = true;
+      }
+      if (flashCounter > 0) {
+        fadeAlpha = Math.max(0, fadeAlpha - 0.25);
+        if (fadeAlpha === 0) {
+          flashCounter--;
+          if (flashCounter > 0) {
+            fadeAlpha = 1;
+          }
         }
-    };
+      }
+    },
+    draw: function() {
+      if (flashCounter > 0) {
+        context.fillStyle = `rgba(255, 255, 255, ${fadeAlpha})`;
+        context.fillRect(0, 0, canvas.width, canvas.height);
+        context.strokeStyle = `rgba(255, 255, 0, ${fadeAlpha})`;
+        context.lineWidth = 9;
+        context.beginPath();
+        context.moveTo(this.x, this.y);
+        for (let i = 0; i < 10; i++) {
+          let x = this.x - 20 * i;
+          let y = this.y + 10 * i;
+          context.lineTo(x + Math.sin(this.zigzagCounter + i) * 5, y);
+        }
+        context.stroke();
+      }
+    }
+  };
 }
 
 // Tornadoes
