@@ -139,6 +139,16 @@ function update() {
             obstacle.x -= 1;  // Obstacle speed
             obstacle.update();
 
+            if (isCollision) {
+        if (obstacle.type === 'lightningStrike' && obstacle.struck) {
+            return false;
+        }
+
+        if (obstacle.type === 'lightningStrike') {
+            obstacle.struck = true;
+        }
+
+            
             if (collisionDetected(dragon, obstacle)) {
                 console.log(`Collision detected at x: ${dragon.x}, y: ${dragon.y}`);
                 console.log(`Collided with obstacle: ${obstacle.type}`);
