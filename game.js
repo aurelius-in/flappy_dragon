@@ -48,7 +48,8 @@ window.addEventListener('keydown', (e) => {
 });
 
 function resetGame() {
-    Object.assign(obstacles, { length: 0 }, perch, { x: 50 }, dragon, { x: dragonStartX, y: dragonStartY, velocity: 0, scale: 1, alpha: 1 }, frame, { current: 0 }, backgrounds, { bgX: 0, fgX: 0, bgbgX: 0 }, screenFade, { alpha: 0 });
+    // Reset dragon's position to its starting position
+    Object.assign(dragon, { x: perch.x, y: perchY - 125, velocity: 0, scale: 1, alpha: 1 });
     gameStarted = false;
     obstacleSpawnTime = 4000;
     endGameTime = 0;
