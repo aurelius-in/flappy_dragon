@@ -64,6 +64,8 @@ function createLightningStrikeObstacle(x, y, dragonX, dragonY, canvas, context) 
     return {
         x: randomX,
         y: y,
+        width: 10,   
+        height: 10,   
         targetX: dragonX + 20,
         targetY: dragonY + 20,
         zigzagCounter: 0,
