@@ -53,6 +53,7 @@ function resetGame() {
     obstacleSpawnTime = 4000;
     endGameTime = 0;
     bg.width = canvas.height * 4;
+    lifeBar.segments = 10;
 }
 
 function createObstacle() {
@@ -131,21 +132,21 @@ function update() {
             obstacle.x -= 1;  // Obstacle speed
             obstacle.update();
 
-            if (collisionDetected(dragon, obstacle)) {
-                if (!dragon.collided) {
-                    lifeBar.segments--;
-                    if (lifeBar.segments <= 0) {
-                        resetGame();
-                    }
-                    obstacles.splice(index, 1);
-                    dragon.collided = true;
-
-                    setTimeout(() => {
-                        dragon.collided = false;
-                    }, 1000);
-                }
+                if (collisionDetected(dragon, obstacle)) {
+        if (!dragon.collided) {
+            lifeBar.segments--;
+            if (lifeBar.segments <= 0) {
+                resetGame();
+                lifeBar.segments = 10;  // Reset segments to 10
             }
-        });
+            obstacles.splice(index, 1);
+            dragon.collided = true;
+
+            setTimeout(() => {
+                dragon.collided = false;
+            }, 1000);
+        }
+    }
 
         // Update perch
         perch.x -= 1;  // Set the speed to match the obstacle speed
