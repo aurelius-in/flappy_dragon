@@ -11,6 +11,7 @@ function createBatSwarmObstacle(x, y) {
         },
         draw: function(context) {
             context.fillStyle = 'black';
+            
             context.beginPath();
             context.arc(this.x, this.y, 15, 0, Math.PI * 2);
             context.fill();
@@ -57,46 +58,24 @@ let levelStartedTime = Date.now();
 let struckThisLevel = false;
 
 function createLightningStrikeObstacle() {
-  return {
-    x: canvas.width / 2,
-    y: 0,
-    width: 9,
-    height: 200,
-    zigzagCounter: 0,
-    update: function() {
-      let currentTime = Date.now();
-      if (!struckThisLevel && currentTime - levelStartedTime > 10000 && currentTime - lastStrikeTime > 11000) {
-        lastStrikeTime = currentTime;
-        flashCounter = 2;
-        struckThisLevel = true;
-      }
-      if (flashCounter > 0) {
-        fadeAlpha = Math.max(0, fadeAlpha - 0.25);
-        if (fadeAlpha === 0) {
-          flashCounter--;
-          if (flashCounter > 0) {
-            fadeAlpha = 1;
-          }
+    const lightningStrike = new Obstacle(
+        canvas.width,
+        Math.random() * canvas.height,
+        50,
+        50,
+        'lightningStrike'
+    );
+
+    lightningStrike.struck = false;
+
+    obstacles.push(lightningStrike);
+
+    setTimeout(() => {
+        const index = obstacles.indexOf(lightningStrike);
+        if (index > -1) {
+            obstacles.splice(index, 1);
         }
-      }
-    },
-    draw: function() {
-      if (flashCounter > 0) {
-        context.fillStyle = `rgba(255, 255, 255, ${fadeAlpha})`;
-        context.fillRect(0, 0, canvas.width, canvas.height);
-        context.strokeStyle = `rgba(255, 255, 0, ${fadeAlpha})`;
-        context.lineWidth = 9;
-        context.beginPath();
-        context.moveTo(this.x, this.y);
-        for (let i = 0; i < 10; i++) {
-          let x = this.x - 20 * i;
-          let y = this.y + 10 * i;
-          context.lineTo(x + Math.sin(this.zigzagCounter + i) * 5, y);
-        }
-        context.stroke();
-      }
-    }
-  };
+    }, 500);  // Remove the lightning after 500 milliseconds
 }
 
 // Tornadoes
