@@ -94,14 +94,13 @@ function createLightningStrikeObstacle(x, y, dragonX, dragonY, canvas, context) 
                 fadeAlpha = Math.max(0, fadeAlpha - 0.02);  // Gradually reduce the alpha value
             }
         },
-        draw: function() {
-            // Make the lightning strike bigger
+            draw: function() {
+            console.log('Context:', context);  // Debugging line
+            console.log('This:', this);  // Debugging line
+            
+            // Your existing drawing code here
             context.fillStyle = 'yellow';
-            context.fillRect(this.x, this.y, 10, 60);  // Increased size
-
-            // Draw the fade effect
-            context.fillStyle = `rgba(255, 255, 255, ${fadeAlpha})`;  // White with alpha
-            context.fillRect(0, 0, canvas.width, canvas.height);  // Cover the entire canvas
+            context.fillRect(this.x, this.y, this.width, this.height);
         }
     };
 }
