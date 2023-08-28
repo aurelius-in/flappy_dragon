@@ -84,14 +84,14 @@ function createObstacle() {
 }
 
 function collisionDetected(dragon, obstacle) {
-    // const boundaryReductionX = dragon.width * 0.05;
-    // const boundaryReductionY = dragon.height * 0.1;
+    const boundaryReductionX = dragon.width * 0.05;
+    const boundaryReductionY = dragon.height * 0.05;
 
     const dragonCollisionArea = {
-        x: dragon.x, // + boundaryReductionX,
-        y: dragon.y, // + boundaryReductionY,
-        width: dragon.width, // - (boundaryReductionX * 2),
-        height: dragon.height // - (boundaryReductionY * 2)
+        x: dragon.x + boundaryReductionX,
+        y: dragon.y + boundaryReductionY,
+        width: dragon.width - (boundaryReductionX * 2),
+        height: dragon.height - (boundaryReductionY * 2)
     };
 
     const obstacleCollisionArea = {
