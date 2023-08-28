@@ -54,26 +54,30 @@ function createArrowObstacle(x, y) {
 let lastStrikeTime = 0;  // Initialize to 0
 let fadeAlpha = 0;  // Initialize to 0
 let flashCounter = 0;  // Initialize to 0
+let levelStartedTime = Date.now();  // Initialize to current time
 
 function createLightningStrikeObstacle(canvas, context) {
     return {
-        x: (canvas.width / 2) + (Math.random() * 50 - 25),  // Random position near top-middle
-        y: Math.random() * 50,  // Random position near the top
-        width: 10,
+        x: (canvas.width / 2),  // Start from top-center
+        y: 0,  // Start from the top
+        width: 30,  // 3x thicker
         height: 200,
         zigzagCounter: 0,
+        struckThisLevel: false,  // New variable to track if lightning has struck this level
         update: function() {
             let currentTime = Date.now();
 
-            if (currentTime - lastStrikeTime > 11000) {  // 11 seconds
+            if (!this.struckThisLevel && currentTime - levelStartedTime > 10000 && currentTime - lastStrikeTime > 11000) {
                 lastStrikeTime = currentTime;
-                flashCounter = 1;  // Only one flash
+                flashCounter = 2;  // Two flashes
+                this.struckThisLevel = true;  // Mark as struck for this level
             }
 
             if (flashCounter > 0) {
-                fadeAlpha = Math.max(0, fadeAlpha - 0.1);  // Faster fade
+                fadeAlpha = Math.max(0, fadeAlpha - 4);  // Faster fade
                 if (fadeAlpha === 0) {
-                    flashCounter--;  // Decrement flashCounter when fadeAlpha reaches 0
+                    flashCounter--;
+                    fadeAlpha = 1;  // Full white flash
                 }
             }
         },
@@ -82,7 +86,7 @@ function createLightningStrikeObstacle(canvas, context) {
             context.fillRect(0, 0, canvas.width, canvas.height);
 
             context.strokeStyle = `rgba(255, 255, 0, ${fadeAlpha})`;  // Lightning color
-            context.lineWidth = 2;
+            context.lineWidth = 6;  // 3x thicker
             context.beginPath();
             context.moveTo(this.x, this.y);
 
