@@ -26,19 +26,19 @@ function handleInput() {
     dragon.y += dragon.velocity;
     
     isFlapping = true;  // Set isFlapping to true when tapped
-    console.log("handleInput called, isFlapping set to:", isFlapping);  // Debugging line
+    // console.log("handleInput called, isFlapping set to:", isFlapping);  // Debugging line
 
     // Set isFlapping back to false after 12 frames have passed
     setTimeout(() => {
         isFlapping = false;
-        console.log("Stopped flapping, isFlapping set to:", isFlapping);  // Debugging line
+        // console.log("Stopped flapping, isFlapping set to:", isFlapping);  // Debugging line
     }, framesPerFlap / dragonFlapSpeed * 12);  // 12 frames
 }
 
 // Event listeners for clicks and keydowns
 window.addEventListener('click', function() {
     gameStarted = true;
-    console.log("Screen clicked, gameStarted set to:", gameStarted);  // Debugging line
+    // console.log("Screen clicked, gameStarted set to:", gameStarted);  // Debugging line
     handleInput();
 });
 window.addEventListener('touchstart', handleInput);
@@ -126,7 +126,7 @@ function collisionDetected(dragon, obstacle) {
 let gravity = 0.3; // Gravity constant
 
 function update() {
-    console.log(canvas, context);  // Add this line for debugging
+    // console.log(canvas, context);  // Add this line for debugging
     let lightningStartX = canvas.width / 2; // Start from the center of the canvas width 
     let lightningStartY = 0; // Start from the top of the canvas
     let lightningStrike = createLightningStrikeObstacle(lightningStartX, lightningStartY, dragon.x + 20, dragon.y - 20, canvas, context);
@@ -204,14 +204,14 @@ function gameLoop() {
     update();
     draw();
 
-    console.log("Game Started:", gameStarted);  // Debugging line
+    // console.log("Game Started:", gameStarted);  // Debugging line
 
     if (gameStarted) {
         if (isFlapping && gameLoopCounter % (framesPerFlap / dragonFlapSpeed) === 0) {
             frame.current = (frame.current + 1) % dragonImages.length;
-            console.log("Flapping! Frame:", frame.current, "Frames per Flap:", framesPerFlap, "Dragon Flap Speed:", dragonFlapSpeed);  // Debugging line
+            // console.log("Flapping! Frame:", frame.current, "Frames per Flap:", framesPerFlap, "Dragon Flap Speed:", dragonFlapSpeed);  // Debugging line
         } else {
-            console.log("Not Flapping! isFlapping:", isFlapping, "Game Loop Counter:", gameLoopCounter, "Frames per Flap:", framesPerFlap, "Dragon Flap Speed:", dragonFlapSpeed);  // Debugging line
+            // console.log("Not Flapping! isFlapping:", isFlapping, "Game Loop Counter:", gameLoopCounter, "Frames per Flap:", framesPerFlap, "Dragon Flap Speed:", dragonFlapSpeed);  // Debugging line
         }
     }
 
