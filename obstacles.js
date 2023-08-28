@@ -51,7 +51,6 @@ function createArrowObstacle(x, y) {
 }
 
 // Lightning Strikes
-// Lightning Strikes
 let lastStrikeTime = 0;  // Initialize to 0
 let fadeAlpha = 0;  // Initialize to 0
 let flashCounter = 0;  // Initialize to 0
@@ -74,8 +73,7 @@ function createLightningStrikeObstacle(canvas, context) {
             if (flashCounter > 0) {
                 fadeAlpha = Math.max(0, fadeAlpha - 0.1);  // Faster fade
                 if (fadeAlpha === 0) {
-                    flashCounter--;
-                    fadeAlpha = 1;  // Full white flash
+                    flashCounter--;  // Decrement flashCounter when fadeAlpha reaches 0
                 }
             }
         },
