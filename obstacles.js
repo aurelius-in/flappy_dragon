@@ -59,7 +59,7 @@ function createLightningStrikeObstacle(x, y, dragonX, dragonY, canvas, context) 
     let fadeAlpha = 0;  // Alpha value for the fade effect
 
     // Randomize the x position within a certain range
-    let randomX = Math.random() * (canvas.width - 50) + 50;
+    let randomX = Math.random() * ((canvas.width || 1280) - 50) + 50;
 
     return {
         x: randomX,
