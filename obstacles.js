@@ -28,7 +28,6 @@ function createBatSwarmObstacle(x, y) {
     };
 }
 
-
 // Arrows
 function createArrowObstacle(x, y) {
     return {
@@ -167,7 +166,6 @@ function createThundercloudObstacle(x, y) {
         }
     };
 }
-
 
 // Fireballs
 function createFireballObstacle(x, y) {
