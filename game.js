@@ -110,11 +110,6 @@ function collisionDetected(dragon, obstacle) {
 let gravity = 0.3; // Gravity constant
 
 function update() {
-    // console.log(canvas, context);  // Add this line for debugging
-    let lightningStartX = canvas.width / 2; // Start from the center of the canvas width 
-    let lightningStartY = 0; // Start from the top of the canvas
-    let lightningStrike = createLightningStrikeObstacle(lightningStartX, lightningStartY, dragon.x + 20, dragon.y - 20, canvas, context);
-    
     if (gameStarted && !levelEnding) {
         // Apply gravity to dragon
         dragon.velocity += gravity;
