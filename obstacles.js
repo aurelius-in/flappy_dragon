@@ -48,16 +48,24 @@ function createBatSwarmObstacle(x, y) {
 }
 
 // Arrows
-function createArrowObstacle(x, y, obstacles) {
+function createArrowObstacle(obstacles) {
+    // Randomly generate the starting x and y coordinates near the bottom-right corner
+    const x = canvas.width + Math.floor(Math.random() * 31) + 20;  // 20 to 50 pixels outside the right edge
+    const y = canvas.height - Math.floor(Math.random() * 31) - 20; // 20 to 50 pixels above the bottom edge
+
+    // Randomly generate the target x and y coordinates near the top-left corner
+    const targetX = -Math.floor(Math.random() * 51) - 50; // 50 to 100 pixels outside the left edge
+    const targetY = Math.floor(Math.random() * 51) + 50;  // 50 to 100 pixels below the top edge
+
     return {
         x: x,
         y: y,
-        targetX: -100, // 100px to the left of the visible screen
-        targetY: -100, // 100px above the visible screen
+        targetX: targetX,
+        targetY: targetY,
         frame: 0,
         arrowCycles: 1,
         type: 'arrow',
-        hit: false,  // Add this line to track if the obstacle has hit the dragon
+        hit: false,
         update: function() {
             const dx = (this.targetX - this.x) * 0.025;  // 50% slower
             const dy = (this.targetY - this.y) * 0.025;  // 50% slower
@@ -75,24 +83,23 @@ function createArrowObstacle(x, y, obstacles) {
         },
         draw: function(context) {
             const aspectRatio = 6; // 300px wide, 50px tall
-            const targetWidth = 112.5; // 1.5 times the previous size (75 * 1.5)
+            const targetWidth = 112.5; // 1.5 times the previous size
             const targetHeight = targetWidth / aspectRatio;
 
             // Calculate the angle based on the trajectory
             const angle = Math.atan2(this.targetY - this.y, this.targetX - this.x);
 
-            context.save(); // Save the current state of the canvas
-            context.translate(this.x, this.y); // Move the origin to the arrow's position
-            context.rotate(angle); // Rotate the canvas
+            context.save();
+            context.translate(this.x, this.y);
+            context.rotate(angle);
 
             // Draw the image
             context.drawImage(arrowImages[this.frame], -targetWidth / 2, -targetHeight / 2, targetWidth, targetHeight);
 
-            context.restore(); // Restore the canvas state
+            context.restore();
         }
     };
 }
-
 
 // Lightning Strikes
 function createLightningStrikeObstacle() {
