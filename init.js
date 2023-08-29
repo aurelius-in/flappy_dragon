@@ -18,7 +18,7 @@ for (let i = 1; i <= 12; i++) {
     boltImages.push(image);
 }
 // Flicker for Lightning
-export let flicker = false;
+export const bolt = { flicker : false };
 
 // Perch
 export const perch = { x: 50, update: function() {} };
