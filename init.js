@@ -14,7 +14,7 @@ export const bgbgImage = new Image(); bgbgImage.src = 'images/bgbg.png';
 export const boltImages = [];
 for (let i = 1; i <= 12; i++) {
     const image = new Image();
-    image.src = `path/to/bolt${i}.png`;
+    image.src = `images/bolt${i}.png`;
     boltImages.push(image);
 }
 
