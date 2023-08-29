@@ -151,7 +151,10 @@ function update() {
 
             if (collisionDetected(dragon, obstacle)) {
                 if (!dragon.collided) {
-                    lifeBar.segments--;
+                    if (!obstacle.hit) {
+                       lifeBar.segments -= 1;
+                       obstacle.hit = true;  // Mark the obstacle as having hit the dragon
+                }
                     if (lifeBar.segments <= 0) {
                         resetGame();
                         lifeBar.segments = 10;  // Reset segments to 10
