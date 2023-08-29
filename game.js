@@ -154,6 +154,11 @@ function update() {
                 }
             }
         });
+                const currentTime = Date.now();
+        if (currentTime - lastObstacleTime >= 2000) { // 2000ms = 2 seconds
+            createObstacle();
+            lastObstacleTime = currentTime;
+        }
 
         // Update perch
         perch.x -= 1;  // Set the speed to match the obstacle speed
@@ -161,7 +166,7 @@ function update() {
 
         // Create new obstacles
         if (gameLoopCounter % 1000 === 0) {
-            createObstacle();
+            // createObstacle();
         }
     }
 }
