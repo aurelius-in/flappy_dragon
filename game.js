@@ -1,6 +1,7 @@
 import {
-    bg, canvas, context, perchY, perchWidth, perchHeight, screenFade, bolt,
+    bg, canvas, context, perchY, perchWidth, perchHeight, screenFade, bolt, arrow, arrowImages,
     dragon, dragonImages, perch, obstacles, lifeBar, tapToFly, backgrounds, frame
+} from './init.js';
 } from './init.js';
 import { draw } from './render.js';
 import {
@@ -79,9 +80,12 @@ function createObstacle() {
     obstacleY = Math.random() * (centerDistance - minDistance) + (topObstacle ? minDistance : centerDistance);
     obstacleY = Math.min(obstacleY, canvas.height - 100);  // Limit to within canvas height
 
-
     const obstacle = {
-        'arrow': () => createArrowObstacle(canvas.width, obstacleY),
+        'arrow': () => {
+            const newArrow = createArrowObstacle(canvas.width, obstacleY);
+            arrow.hit = false;  // Initialize hit flag for arrow
+            return newArrow;
+        },
         'lightningStrike': () => createLightningStrikeObstacle(),
         'batSwarm': () => createBatSwarmObstacle(canvas.width, obstacleY),
         'tornado': () => createTornadoObstacle(canvas.width, obstacleY),
@@ -90,6 +94,11 @@ function createObstacle() {
         'thundercloud': () => createThundercloudObstacle(canvas.width, obstacleY),
         'fireball': () => createFireballObstacle(canvas.width, obstacleY)
     }[randomType]();
+
+    // Handle arrow collision initialization
+    if (randomType === 'arrow') {
+        arrow.hit = false;
+    }
 
     obstacles.push(obstacle);
     topObstacle = !topObstacle;
