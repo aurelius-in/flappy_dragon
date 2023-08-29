@@ -47,31 +47,38 @@ function createBatSwarmObstacle(x, y) {
     };
 }
 
-function createArrowObstacle(x, y) {
+// Arrows
+function createArrowObstacle() {
+    const startX = canvas.width - Math.random() * 100;  // Random start X near the bottom right corner
+    const startY = canvas.height - Math.random() * 100;  // Random start Y near the bottom right corner
+    const endX = Math.random() * 100;  // Random end X near the top left corner
+    const endY = Math.random() * 100;  // Random end Y near the top left corner
+
+    const dx = endX - startX;
+    const dy = endY - startY;
+    const angle = Math.atan2(dy, dx);  // Calculate the angle for rotation
+
     return {
-        x: x,
-        y: y,
-        width: 50,  // Set appropriate dimensions
-        height: 100,  // Set appropriate dimensions
+        x: startX,
+        y: startY,
+        endX: endX,
+        endY: endY,
+        angle: angle,
         frame: 0,
-        arrowCycles: 1,
-        type: 'arrow',
         hit: false,  // Add this line to track if the obstacle has hit the dragon
         update: function() {
-            this.x -= 2;
-            this.y += 1;
-            this.frame = (this.frame + 1) % (arrowImages.length * 2 * this.arrowCycles);
+            this.x += Math.cos(this.angle) * 2;
+            this.y += Math.sin(this.angle) * 2;
         },
         draw: function(context) {
-            if (this.frame < arrowImages.length) {
-                context.drawImage(arrowImages[this.frame], this.x, this.y, this.width, this.height);
-            } else {
-                context.drawImage(arrowImages[arrowImages.length * 2 - 1 - this.frame], this.x, this.y, this.width, this.height);
-            }
+            context.save();
+            context.translate(this.x, this.y);
+            context.rotate(this.angle);
+            context.drawImage(arrowImages[this.frame], -25, -25, 50, 50);  // Adjust size as needed
+            context.restore();
         }
     };
 }
-
 // Lightning Strikes
 function createLightningStrikeObstacle() {
     const bolt = {
