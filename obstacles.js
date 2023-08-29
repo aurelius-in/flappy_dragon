@@ -70,9 +70,6 @@ function createArrowObstacle(x, y) {
 
 // Lightning Strikes
 function createLightningStrikeObstacle() {
-    let localFlicker = true;  // Create a local variable for flicker
-    setTimeout(() => localFlicker = false, 1000);  // Set it to false after 1 second
-
     const bolt = {
         x: canvas.width,
         y: Math.random() * (canvas.height * 0.5),
@@ -81,7 +78,7 @@ function createLightningStrikeObstacle() {
         frame: 0,
         boltCycles: 1,
         type: 'lightningStrike',
-        flicker: localFlicker,  // Use the local variable
+        flicker: true,  // Add this line for flicker
         update: function() {
             this.x -= 1;
             this.frame = (this.frame + 1) % (boltImages.length * 2 * this.boltCycles);
@@ -90,15 +87,19 @@ function createLightningStrikeObstacle() {
             } else {
                 context.drawImage(boltImages[boltImages.length * 2 - 1 - this.frame], this.x, this.y, this.width, this.height);
             }
+        },
+        draw: function(context) {
+            if (this.frame < boltImages.length) {
+                context.drawImage(boltImages[this.frame], this.x, this.y, this.width, this.height);
+            } else {
+                context.drawImage(boltImages[boltImages.length * 2 - 1 - this.frame], this.x, this.y, this.width, this.height);
+            }
         }
-           draw: function(context) {
-        if (this.frame < boltImages.length) {
-            context.drawImage(boltImages[this.frame], this.x, this.y, this.width, this.height);
-        } else {
-            context.drawImage(boltImages[boltImages.length * 2 - 1 - this.frame], this.x, this.y, this.width, this.height);
-        }
-    },
     };
+
+    // Turn off flicker after 1 second
+    setTimeout(() => bolt.flicker = false, 1000);
+
     return bolt;
 }
 
