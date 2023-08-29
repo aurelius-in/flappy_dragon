@@ -154,30 +154,27 @@ function update() {
         backgrounds.bgbgX -= 0.1; // slowest
 
        // Update obstacles
-// Update obstacles
-        obstacles.forEach((obstacle, index) => {
-            obstacle.update();
+obstacles.forEach((obstacle, index) => {
+    obstacle.update();
 
-            if (collisionDetected(dragon, obstacle)) {
-                if (!obstacle.hit) {  // Check if this obstacle has already hit the dragon
-                    lifeBar.segments -= 1;
-                    obstacle.hit = true;  // Mark the obstacle as having hit the dragon
-                }
-                if (lifeBar.segments <= 0) {
-                    resetGame();
-                    lifeBar.segments = 10;  // Reset segments to 10
-                }
-                if (obstacle.type !== 'arrow') {  // Keep arrows in the game until they leave the screen
-                    obstacles.splice(index, 1);  // Remove the obstacle that has hit the dragon
-                }
-            }
+    if (collisionDetected(dragon, obstacle)) {
+        if (!obstacle.hit) {  // Check if this obstacle has already hit the dragon
+            lifeBar.segments -= 1;
+            obstacle.hit = true;  // Mark the obstacle as having hit the dragon
+        }
+        if (lifeBar.segments <= 0) {
+            resetGame();
+            lifeBar.segments = 10;  // Reset segments to 10
+        }
+        if (obstacle.type !== 'arrow') {  // Keep arrows in the game until they leave the screen
+            obstacles.splice(index, 1);  // Remove the obstacle that has hit the dragon
+        }
+    }
 
-            if (obstacle.type === 'arrow' && (obstacle.x < -100 || obstacle.y < -100)) {
-                obstacles.splice(index, 1);  // Remove the arrow that has left the screen
-            }
-        });
-
-
+    if (obstacle.type === 'arrow' && (obstacle.x < -100 || obstacle.y < -100)) {
+        obstacles.splice(index, 1);  // Remove the arrow that has left the screen
+    }
+});
                 const currentTime = Date.now();
         if (currentTime - lastObstacleTime >= 2000) { // 2000ms = 2 seconds
             createObstacle();
