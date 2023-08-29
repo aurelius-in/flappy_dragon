@@ -1,5 +1,23 @@
 import { canvas, context } from './init.js';  // Import canvas and context from init.js
 
+// Wraiths
+function createWraithObstacle(x, y) {
+    return {
+        x: x,
+        y: y,
+        update: function() {
+            this.x -= 2;
+            this.y += Math.sin(this.x) * 2;
+        },
+        draw: function(context) {
+            context.fillStyle = 'purple';
+            context.beginPath();
+            context.arc(this.x, this.y, 15, 0, Math.PI * 2);
+            context.fill();
+        }
+    };
+}
+
 // Bat Swarms
 function createBatSwarmObstacle(x, y) {
     return {
