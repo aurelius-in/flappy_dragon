@@ -82,7 +82,7 @@ function createObstacle() {
 
     const obstacle = {
         'arrow': () => {
-            const newArrow = createArrowObstacle(canvas.width, obstacleY);
+            const newArrow = createArrowObstacle(canvas.width, obstacleY, obstacles);
             arrow.hit = false;  // Initialize hit flag for arrow
             return newArrow;
         },
