@@ -88,9 +88,10 @@ function createLightningStrikeObstacle() {
             }
         }
     };
+    flicker = true;
+    setTimeout(() => flicker = false, 1000);
     return bolt;
 }
-
 
 // Zombie Ghost Dragons
 function createZombieDragonObstacle(x, y) {
