@@ -115,7 +115,7 @@ function collisionDetected(dragon, obstacle) {
     return isCollision;
 }
 
-let gravity = 0.3, let lastObstacleTime = 0;
+let gravity = 0.3, lastObstacleTime = 0;
 
 function update() {
     if (gameStarted && !levelEnding) {
