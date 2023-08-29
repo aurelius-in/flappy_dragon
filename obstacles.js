@@ -57,6 +57,10 @@ function createArrowObstacle(obstacles) {
     const targetX = -Math.floor(Math.random() * 51) - 50; // 50 to 100 pixels outside the left edge
     const targetY = Math.floor(Math.random() * 51) + 50;  // 50 to 100 pixels below the top edge
 
+    const aspectRatio = 6; // 300px wide, 50px tall
+    const targetWidth = 112.5; // 1.5 times the previous size
+    const targetHeight = targetWidth / aspectRatio;
+
     return {
         x: x,
         y: y,
