@@ -2,7 +2,7 @@ import {
     bg, canvas, context, perchY, perchWidth, perchHeight, screenFade, bolt, arrow, arrowImages,
     dragon, dragonImages, perch, obstacles, lifeBar, tapToFly, backgrounds, frame
 } from './init.js';
-} from './init.js';
+
 import { draw } from './render.js';
 import {
     createArrowObstacle, createLightningStrikeObstacle, createBatSwarmObstacle, createTornadoObstacle,
