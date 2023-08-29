@@ -69,62 +69,28 @@ function createArrowObstacle(x, y) {
 }
 
 // Lightning Strikes
-let lastStrikeTime = 0;
-let fadeAlpha = 0;
-let flashCounter = 0;
-let levelStartedTime = Date.now();
-let struckThisLevel = false;
-
 function createLightningStrikeObstacle() {
-  return {
-    x: canvas.width / 2,
-    y: 0,
-    width: 18,  // Double the thickness
-    height: 200,
-    zigzagCounter: 0,
-    hasStruck: false,
-    update: function() {
-      let currentTime = Date.now();
-      if (!struckThisLevel && currentTime - levelStartedTime > 10000 && currentTime - lastStrikeTime > 11000) {
-        lastStrikeTime = currentTime;
-        flashCounter = 2;
-        struckThisLevel = true;
-        this.hasStruck = true;
-      }
-      if (flashCounter > 0) {
-        fadeAlpha = Math.max(0, fadeAlpha - 0.25);
-        if (fadeAlpha === 0) {
-          flashCounter--;
-          if (flashCounter > 0) {
-            fadeAlpha = 1;
-          }
+    const bolt = {
+        x: canvas.width,
+        y: Math.random() * (canvas.height * 0.5),
+        width: 50,  // Set the width
+        height: 100,  // Set the height
+        frame: 0,
+        boltCycles: 1,  // Number of cycles the animation should complete
+        type: 'lightningStrike',
+        update: function() {
+            this.x -= 1;  // Move the obstacle to the left
+            this.frame = (this.frame + 1) % (boltImages.length * 2 * this.boltCycles);
+            if (this.frame < boltImages.length) {
+                context.drawImage(boltImages[this.frame], this.x, this.y, this.width, this.height);
+            } else {
+                context.drawImage(boltImages[boltImages.length * 2 - 1 - this.frame], this.x, this.y, this.width, this.height);
+            }
         }
-      }
-    },
-    draw: function(context) {
-      if (flashCounter > 0) {
-        context.fillStyle = 'rgba(255, 255, 255, ' + fadeAlpha + ')';
-        context.fillRect(0, 0, canvas.width, canvas.height);
-      }
-      if (this.hasStruck) {
-        context.strokeStyle = 'yellow';
-        context.lineWidth = this.width;
-        context.beginPath();
-        context.moveTo(this.x, this.y);
-        let step = this.height / 3;  // Divide by 3 to get three zigzags
-        for (let i = 0; i <= 3; i++) {
-          let angle = (i % 2 === 0 ? 1 : -1) * 110 * (Math.PI / 180);  // 110 degrees in radians
-          let dx = Math.cos(angle) * step;
-          let dy = Math.sin(angle) * step;
-          context.lineTo(this.x + dx, this.y + dy);
-          this.x += dx;
-          this.y += dy;
-        }
-        context.stroke();
-      }
-    }
-  };
+    };
+    return bolt;
 }
+
 
 // Zombie Ghost Dragons
 function createZombieDragonObstacle(x, y) {
