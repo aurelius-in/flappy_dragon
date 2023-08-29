@@ -195,19 +195,16 @@ function gameLoop() {
     update();
     draw();
 
-    // console.log("Game Started:", gameStarted);  // Debugging line
-
     if (gameStarted) {
-        // if (isFlapping && flapCounter % (framesPerFlap / dragonFlapSpeed) === 0) {
         if (isFlapping) {
-            frame.current = (frame.current + 1) % dragonImages.length;
-            // console.log("Flapping! Frame:", frame.current, "Frames per Flap:", framesPerFlap, "Dragon Flap Speed:", dragonFlapSpeed);  // Debugging line
-        } else {
-            // console.log("Not Flapping! isFlapping:", isFlapping, "Game Loop Counter:", gameLoopCounter, "Frames per Flap:", framesPerFlap, "Dragon Flap Speed:", dragonFlapSpeed);  // Debugging line
+            if (flapCounter % 5 === 0) {  // Update every 5 frames (adjust this number to control speed)
+                frame.current = (frame.current + 1) % dragonImages.length;
+            }
         }
     }
 
-    requestAnimationFrame(gameLoop);  // Keep the game loop running
+    flapCounter++;  // Increment the counter
+    requestAnimationFrame(gameLoop);
 }
 
 gameLoop();  // Initial call to start the game loop
