@@ -195,7 +195,8 @@ function gameLoop() {
     // console.log("Game Started:", gameStarted);  // Debugging line
 
     if (gameStarted) {
-        if (isFlapping && gameLoopCounter % (framesPerFlap / dragonFlapSpeed) === 0) {
+        // if (isFlapping && gameLoopCounter % (framesPerFlap / dragonFlapSpeed) === 0) {
+        if (isFlapping) {
             frame.current = (frame.current + 1) % dragonImages.length;
             // console.log("Flapping! Frame:", frame.current, "Frames per Flap:", framesPerFlap, "Dragon Flap Speed:", dragonFlapSpeed);  // Debugging line
         } else {
