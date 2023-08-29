@@ -36,15 +36,28 @@ function handleInput() {
 }
 
 // Event listeners for clicks and keydowns
+// Modify the click event listener
 window.addEventListener('click', function() {
-    gameStarted = true;
-    // console.log("Screen clicked, gameStarted set to:", gameStarted);  // Debugging line
+    if (!gameStarted) {
+        gameStarted = true;
+    }
     handleInput();
 });
-window.addEventListener('touchstart', handleInput);
+
+// Modify the touchstart event listener
+window.addEventListener('touchstart', function() {
+    if (!gameStarted) {
+        gameStarted = true;
+    }
+    handleInput();
+});
+
+// Modify the keydown event listener
 window.addEventListener('keydown', (e) => {
-    if (e.code === 'Space') 
-        handleInput();
+    if (!gameStarted) {
+        gameStarted = true;
+    }
+    handleInput();
 });
 
 function resetGame() {
