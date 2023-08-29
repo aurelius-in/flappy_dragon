@@ -47,23 +47,27 @@ function createBatSwarmObstacle(x, y) {
     };
 }
 
-// Arrows
 function createArrowObstacle(x, y) {
     return {
         x: x,
         y: y,
+        width: 50,  // Set appropriate dimensions
+        height: 100,  // Set appropriate dimensions
+        frame: 0,
+        arrowCycles: 1,
+        type: 'arrow',
+        hit: false,  // Add this line to track if the obstacle has hit the dragon
         update: function() {
             this.x -= 2;
             this.y += 1;
+            this.frame = (this.frame + 1) % (arrowImages.length * 2 * this.arrowCycles);
         },
         draw: function(context) {
-            context.fillStyle = 'brown';
-            context.beginPath();
-            context.moveTo(this.x, this.y);
-            context.lineTo(this.x - 10, this.y + 20);
-            context.lineTo(this.x + 10, this.y + 20);
-            context.closePath();
-            context.fill();
+            if (this.frame < arrowImages.length) {
+                context.drawImage(arrowImages[this.frame], this.x, this.y, this.width, this.height);
+            } else {
+                context.drawImage(arrowImages[arrowImages.length * 2 - 1 - this.frame], this.x, this.y, this.width, this.height);
+            }
         }
     };
 }
