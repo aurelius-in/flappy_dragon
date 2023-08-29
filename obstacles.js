@@ -59,8 +59,8 @@ function createArrowObstacle(x, y, obstacles) {
         type: 'arrow',
         hit: false,  // Add this line to track if the obstacle has hit the dragon
         update: function() {
-            const dx = (this.targetX - this.x) * 0.05;
-            const dy = (this.targetY - this.y) * 0.05;
+            const dx = (this.targetX - this.x) * 0.025;  // 50% slower
+            const dy = (this.targetY - this.y) * 0.025;  // 50% slower
             this.x += dx;
             this.y += dy;
             this.frame = (this.frame + 1) % (arrowImages.length * this.arrowCycles);
@@ -75,7 +75,7 @@ function createArrowObstacle(x, y, obstacles) {
         },
         draw: function(context) {
             const aspectRatio = 6; // 300px wide, 50px tall
-            const targetWidth = 75; // Half the previous size
+            const targetWidth = 112.5; // 1.5 times the previous size (75 * 1.5)
             const targetHeight = targetWidth / aspectRatio;
 
             // Calculate the angle based on the trajectory
@@ -92,7 +92,6 @@ function createArrowObstacle(x, y, obstacles) {
         }
     };
 }
-
 
 
 // Lightning Strikes
