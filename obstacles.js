@@ -58,7 +58,7 @@ let levelStartedTime = Date.now();
 let struckThisLevel = false;
 
 function createLightningStrikeObstacle() {
-    const lightningStrike = new Obstacle(
+    const lightningStrike = new obstacle(
         canvas.width,
         Math.random() * canvas.height,
         50,
