@@ -17,6 +17,7 @@ import {
   tapToFly,
   perch,
   lifeBar,
+  render,
   screenFade
 } from './init.js';
 
