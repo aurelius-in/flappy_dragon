@@ -10,28 +10,40 @@ import {
 
 let totalFrames = 12, topObstacle = false, obstacleY, spawnRate = 5, spawnTimer = 0, framesPerFlap = 1, flapCounter = 0, gameLoopCounter = 0, gameStarted = false, jump = 8, isFlapping = false, dragonFlapSpeed = 3;
 
-// To prevent multiple jumps
-let jumpLock = false;
+let jumpLock = false, lastFlapTime = 0;
 
-function handleInput() {
-    if (jumpLock) return;
-    jumpLock = true;
-    setTimeout(() => jumpLock = false, 200);  // Unlock after 200ms
-
-    if (!gameStarted) {
-        gameStarted = true;
+// Handle user input
+function handleInput(event) {
+    if (event.type === 'keydown' && event.code === 'Space') {
+        isFlapping = true;
+        lastFlapTime = Date.now(); // Record the time when the user clicks
+    } else if (event.type === 'touchstart' || event.type === 'mousedown') {
+        isFlapping = true;
+        lastFlapTime = Date.now(); // Record the time when the user clicks
     }
-    
-    dragon.velocity = -jump; // Make the dragon go up
-    dragon.y += dragon.velocity;
-    
-    isFlapping = true;  // Set isFlapping to true when tapped
+}
 
-    // Reset frame to the first image after one loop
-    setTimeout(() => {
-        frame.current = 0;
-        isFlapping = false;
-    }, framesPerFlap * totalFrames);
+// Main game loop
+function gameLoop() {
+    // Update game state
+    update();
+
+    // Draw game state
+    draw();
+
+    if (gameStarted) {
+        const currentTime = Date.now();
+        if (isFlapping && currentTime - lastFlapTime < 600) {
+            const timeSinceLastFlap = currentTime - lastFlapTime;
+            frame.current = Math.floor(timeSinceLastFlap / 100);
+        } else {
+            frame.current = 0;
+            isFlapping = false;
+        }
+    }
+
+    // Request the next animation frame
+    requestAnimationFrame(gameLoop);
 }
 
 // Event listeners for clicks and keydowns
