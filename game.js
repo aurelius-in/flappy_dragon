@@ -81,11 +81,11 @@ function createObstacle() {
     obstacleY = Math.min(obstacleY, canvas.height - 100);  // Limit to within canvas height
 
     const obstacle = {
-        'arrow': () => {
-            const newArrow = createArrowObstacle(canvas.width, obstacleY, obstacles);
-            arrow.hit = false;  // Initialize hit flag for arrow
-            return newArrow;
-        },
+    'arrow': () => {
+        const newArrow = createArrowObstacle(canvas.width, obstacleY, obstacles);
+        newArrow.hit = false;  // Initialize hit flag for newArrow
+        return newArrow;
+    },
         'lightningStrike': () => createLightningStrikeObstacle(),
         'batSwarm': () => createBatSwarmObstacle(canvas.width, obstacleY),
         'tornado': () => createTornadoObstacle(canvas.width, obstacleY),
