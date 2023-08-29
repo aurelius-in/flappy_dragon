@@ -10,6 +10,14 @@ export const bgImage = new Image(); bgImage.src = 'images/bg.png';
 export const fgImage = new Image(); fgImage.src = 'images/fg.png';
 export const bgbgImage = new Image(); bgbgImage.src = 'images/bgbg.png';
 
+// Load the lightning bolt images
+export const boltImages = [];
+for (let i = 1; i <= 12; i++) {
+    const image = new Image();
+    image.src = `path/to/bolt${i}.png`;
+    boltImages.push(image);
+}
+
 // Perch
 export const perch = { x: 50, update: function() {} };
 export const perchY = canvas.height - 250;
