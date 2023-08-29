@@ -8,7 +8,7 @@ import {
     createWraithObstacle, createZombieDragonObstacle, createThundercloudObstacle, createFireballObstacle
 } from './obstacles.js';
 
-let totalFrames = 12, topObstacle = false, obstacleY, spawnRate = 5, spawnTimer = 0, framesPerFlap = .01, flapCounter = 0, gameLoopCounter = 0, gameStarted = false, jump = 8, isFlapping = false, dragonFlapSpeed = 3;
+let totalFrames = 12, topObstacle = false, obstacleY, spawnRate = 5, spawnTimer = 0, framesPerFlap = 1, flapCounter = 0, gameLoopCounter = 0, gameStarted = false, jump = 8, isFlapping = false, dragonFlapSpeed = 3;
 
 // To prevent multiple jumps
 let jumpLock = false;
@@ -171,7 +171,6 @@ function update() {
 // Increment flapCounter
 flapCounter++;
 
-
 let levelEnding = false;  // Add this flag to indicate when the level is ending
 
 function levelEnd() {
@@ -199,8 +198,8 @@ function gameLoop() {
     // console.log("Game Started:", gameStarted);  // Debugging line
 
     if (gameStarted) {
-        if (isFlapping && flapCounter % (framesPerFlap / dragonFlapSpeed) === 0) {
-        // if (isFlapping) {
+        // if (isFlapping && flapCounter % (framesPerFlap / dragonFlapSpeed) === 0) {
+        if (isFlapping) {
             frame.current = (frame.current + 1) % dragonImages.length;
             // console.log("Flapping! Frame:", frame.current, "Frames per Flap:", framesPerFlap, "Dragon Flap Speed:", dragonFlapSpeed);  // Debugging line
         } else {
