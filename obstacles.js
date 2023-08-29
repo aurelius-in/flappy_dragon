@@ -165,6 +165,7 @@ function createFireballObstacle(x, y) {
 }
 
 export {
+    obstacle,
     createArrowObstacle,
     createLightningStrikeObstacle,
     createBatSwarmObstacle,
