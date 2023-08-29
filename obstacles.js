@@ -141,6 +141,24 @@ function createFireballObstacle(x, y) {
     };
 }
 
+// Tornadoes
+function createTornadoObstacle(x, y) {
+    return {
+        x: x,
+        y: y,
+        update: function() {
+            this.x -= 2;
+            this.y += Math.sin(this.x) * 2;
+        },
+        draw: function(context) {
+            context.fillStyle = 'gray';
+            context.beginPath();
+            context.arc(this.x, this.y, 15, 0, Math.PI * 2);
+            context.fill();
+        }
+    };
+}
+
 export {
     createArrowObstacle,
     createBatSwarmObstacle,
