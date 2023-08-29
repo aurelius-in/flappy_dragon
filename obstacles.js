@@ -79,6 +79,7 @@ function createLightningStrikeObstacle() {
         boltCycles: 1,
         type: 'lightningStrike',
         flicker: true,  // Add this line for flicker
+        hit: false,  // Add this line to track if the obstacle has hit the dragon
         update: function() {
             this.x -= 1;
             this.frame = (this.frame + 1) % (boltImages.length * 2 * this.boltCycles);
