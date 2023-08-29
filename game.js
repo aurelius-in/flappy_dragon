@@ -231,17 +231,4 @@ window.onload = () => {
     setTimeout(() => {
         tapToFly.alpha = 0;
     }, 2000);
-
-    /*
-    setTimeout(() => {
-        dragon.velocity = jump;
-        dragon.y += dragon.velocity;
-    }, 2100);
-
-    setTimeout(() => {
-        dragon.velocity = jump;
-        dragon.y += dragon.velocity;
-        gameStarted = true;
-    }, 2300);
 };
-*/
