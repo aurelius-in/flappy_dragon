@@ -203,24 +203,6 @@ function levelEnd() {
     }
 }
 
-function gameLoop() {
-    update();
-    draw();
-
-    if (gameStarted) {
-        if (isFlapping) {
-            if (flapCounter % 5 === 0) {  // Update every 5 frames (adjust this number to control speed)
-                frame.current = (frame.current + 1) % dragonImages.length;
-            }
-        }
-    }
-
-    flapCounter++;  // Increment the counter
-    requestAnimationFrame(gameLoop);
-}
-
-gameLoop();  // Initial call to start the game loop
-
 window.onload = () => {
     setTimeout(() => {
         tapToFly.alpha = 0;
