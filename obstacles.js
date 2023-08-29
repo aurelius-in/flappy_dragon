@@ -66,6 +66,8 @@ function createArrowObstacle(obstacles) {
         arrowCycles: 1,
         type: 'arrow',
         hit: false,
+        width: targetWidth,  // Add this line
+        height: targetHeight, // Add this line
         update: function() {
             const dx = (this.targetX - this.x) * 0.025;  // 50% slower
             const dy = (this.targetY - this.y) * 0.025;  // 50% slower
