@@ -8,42 +8,31 @@ import {
     createWraithObstacle, createZombieDragonObstacle, createThundercloudObstacle, createFireballObstacle
 } from './obstacles.js';
 
-let totalFrames = 12, topObstacle = false, obstacleY, spawnRate = 5, spawnTimer = 0, framesPerFlap = 1, flapCounter = 0, gameLoopCounter = 0, gameStarted = false, jump = 8, isFlapping = false, dragonFlapSpeed = 3, jumpLock = false, lastFlapTime = 0;
+let obstacleSpawnTime = 4000, topObstacle = false, obstacleY, spawnRate = 5, spawnTimer = 0, framesPerFlap = 150, gameLoopCounter = 0, gameStarted = false, jump = 8, isFlapping = false, dragonFlapSpeed = 3;
 
-// Handle user input
-function handleInput(event) {
-    if (!event) return; // Add this line to handle undefined events
+// To prevent multiple jumps
+let jumpLock = false;
 
-    if (event.type === 'keydown' && event.code === 'Space') {
-        isFlapping = true;
-        lastFlapTime = Date.now(); // Record the time when the user clicks
-    } else if (event.type === 'touchstart' || event.type === 'mousedown') {
-        isFlapping = true;
-        lastFlapTime = Date.now(); // Record the time when the user clicks
+function handleInput() {
+    if (jumpLock) return;
+    jumpLock = true;
+    setTimeout(() => jumpLock = false, 200);  // Unlock after 200ms
+
+    if (!gameStarted) {
+        gameStarted = true;
     }
-}
+    
+    dragon.velocity = -jump; // Make the dragon go up
+    dragon.y += dragon.velocity;
+    
+    isFlapping = true;  // Set isFlapping to true when tapped
+    // console.log("handleInput called, isFlapping set to:", isFlapping);  // Debugging line
 
-// Main game loop
-function gameLoop() {
-    // Update game state
-    update();
-
-    // Draw game state
-    draw();
-
-    if (gameStarted) {
-        const currentTime = Date.now();
-        if (isFlapping && currentTime - lastFlapTime < 600) {
-            const timeSinceLastFlap = currentTime - lastFlapTime;
-            frame.current = Math.floor(timeSinceLastFlap / 100);
-        } else {
-            frame.current = 0;
-            isFlapping = false;
-        }
-    }
-
-    // Request the next animation frame
-    requestAnimationFrame(gameLoop);
+    // Set isFlapping back to false after 12 frames have passed
+    setTimeout(() => {
+        isFlapping = false;
+        // console.log("Stopped flapping, isFlapping set to:", isFlapping);  // Debugging line
+    }, framesPerFlap / dragonFlapSpeed * 12);  // 12 frames
 }
 
 // Event listeners for clicks and keydowns
@@ -58,18 +47,11 @@ window.addEventListener('keydown', (e) => {
         handleInput();
 });
 
-// Update the event listeners to pass the event object to handleInput
-window.addEventListener('click', handleInput);
-window.addEventListener('touchstart', handleInput);
-window.addEventListener('keydown', handleInput);
-
-// Start the game loop
-gameLoop();
-
 function resetGame() {
     // Reset dragon's position to its starting position
     Object.assign(dragon, { x: perch.x, y: perchY - 125, velocity: 0, scale: 1, alpha: 1 });
     gameStarted = false;
+    obstacleSpawnTime = 4000;
     bg.width = canvas.height * 4;
     lifeBar.segments = 10;
 }
@@ -98,6 +80,7 @@ function createObstacle() {
 
     obstacles.push(obstacle);
     topObstacle = !topObstacle;
+    obstacleSpawnTime *= 0.999;
     obstacleY = Math.random() * (centerDistance - minDistance) + (topObstacle ? minDistance : centerDistance);
     console.log(`Created obstacle of type: ${randomType} at y-position: ${obstacleY}`);
 }
@@ -150,8 +133,6 @@ function update() {
         backgrounds.bgX -= 0.2; // slower
         backgrounds.bgbgX -= 0.1; // slowest
 
-        if (backgrounds.fgX + bg.width <= canvas.width) {  levelEnd(); }
-
         // Update obstacles
         obstacles.forEach((obstacle, index) => {
             obstacle.x -= 1;  // Obstacle speed
@@ -178,18 +159,17 @@ function update() {
         perch.x -= 1;  // Set the speed to match the obstacle speed
         perch.update();
 
-       // Increment gameLoopCounter
-        gameLoopCounter++;
-        
         // Create new obstacles
-        if (gameLoopCounter % 180 === 0) {
+        if (gameLoopCounter % 1000 === 0) {
             createObstacle();
         }
     }
 }
 
-// Increment flapCounter
-flapCounter++;
+
+if (backgrounds.fgX + bg.width <= canvas.width) {
+    levelEnd();
+}
 
 let levelEnding = false;  // Add this flag to indicate when the level is ending
 
@@ -211,6 +191,26 @@ function levelEnd() {
     }
 }
 
+function gameLoop() {
+    update();
+    draw();
+
+    // console.log("Game Started:", gameStarted);  // Debugging line
+
+    if (gameStarted) {
+        if (isFlapping && gameLoopCounter % (framesPerFlap / dragonFlapSpeed) === 0) {
+            frame.current = (frame.current + 1) % dragonImages.length;
+            // console.log("Flapping! Frame:", frame.current, "Frames per Flap:", framesPerFlap, "Dragon Flap Speed:", dragonFlapSpeed);  // Debugging line
+        } else {
+            // console.log("Not Flapping! isFlapping:", isFlapping, "Game Loop Counter:", gameLoopCounter, "Frames per Flap:", framesPerFlap, "Dragon Flap Speed:", dragonFlapSpeed);  // Debugging line
+        }
+    }
+
+    requestAnimationFrame(gameLoop);  // Keep the game loop running
+}
+
+gameLoop();  // Initial call to start the game loop
+
 window.onload = () => {
     setTimeout(() => {
         tapToFly.alpha = 0;
@@ -227,4 +227,3 @@ window.onload = () => {
         gameStarted = true;
     }, 2300);
 };
-
