@@ -130,6 +130,8 @@ function update() {
         backgrounds.bgX -= 0.2; // slower
         backgrounds.bgbgX -= 0.1; // slowest
 
+        if (backgrounds.fgX + bg.width <= canvas.width) {  levelEnd(); }
+
         // Update obstacles
         obstacles.forEach((obstacle, index) => {
             obstacle.x -= 1;  // Obstacle speed
@@ -164,11 +166,6 @@ function update() {
             createObstacle();
         }
     }
-}
-
-
-if (backgrounds.fgX + bg.width <= canvas.width) {
-    levelEnd();
 }
 
 let levelEnding = false;  // Add this flag to indicate when the level is ending
