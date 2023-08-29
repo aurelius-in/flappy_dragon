@@ -59,13 +59,23 @@ function createArrowObstacle(x, y) {
         type: 'arrow',
         hit: false,  // Add this line to track if the obstacle has hit the dragon
         update: function() {
-            this.x += (this.targetX - this.x) * 0.01;
-            this.y += (this.targetY - this.y) * 0.01;
+            const dx = (this.targetX - this.x) * 0.05;
+            const dy = (this.targetY - this.y) * 0.05;
+            this.x += dx;
+            this.y += dy;
             this.frame = (this.frame + 1) % (arrowImages.length * this.arrowCycles);
+
+            // Remove the arrow if it's off-screen
+            if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+                const index = obstacles.indexOf(this);
+                if (index > -1) {
+                    obstacles.splice(index, 1);
+                }
+            }
         },
         draw: function(context) {
             const aspectRatio = 6; // 300px wide, 50px tall
-            const targetWidth = 150; // You can set this to whatever you want
+            const targetWidth = 75; // Half the previous size
             const targetHeight = targetWidth / aspectRatio;
 
             // Calculate the angle based on the trajectory
