@@ -120,8 +120,6 @@ let gravity = 0.3; // Gravity constant
 let lastObstacleTime = 0;
 
 function update() {
-    const currentTime = Date.now();
-
     if (gameStarted && !levelEnding) {
         // Apply gravity to dragon
         dragon.velocity += gravity;
@@ -139,20 +137,7 @@ function update() {
             obstacle.x -= 1;  // Obstacle speed
             obstacle.update();
 
-            if (isCollision) {
-        if (obstacle.type === 'lightningStrike' && obstacle.struck) {
-            return false;
-        }
-
-        if (obstacle.type === 'lightningStrike') {
-            obstacle.struck = true;
-        }
-
-            
             if (collisionDetected(dragon, obstacle)) {
-                console.log(`Collision detected at x: ${dragon.x}, y: ${dragon.y}`);
-                console.log(`Collided with obstacle: ${obstacle.type}`);
-
                 if (!dragon.collided) {
                     lifeBar.segments--;
                     if (lifeBar.segments <= 0) {
@@ -174,9 +159,8 @@ function update() {
         perch.update();
 
         // Create new obstacles
-        if (currentTime - lastObstacleTime >= 3000) { // Every 3000 milliseconds (3 seconds)
+        if (gameLoopCounter % 180 === 0) { // Every 180 frames (approx 3 seconds)
             createObstacle();
-            lastObstacleTime = currentTime;
         }
     }
 }
