@@ -58,60 +58,37 @@ let levelStartedTime = Date.now();
 let struckThisLevel = false;
 
 function createLightningStrikeObstacle() {
-    const lightningStrike = new obstacle(
-        canvas.width,
-        Math.random() * canvas.height,
-        50,
-        50,
-        'lightningStrike'
-    );
-
-    lightningStrike.struck = false;
-
-    obstacles.push(lightningStrike);
-
-    setTimeout(() => {
-        const index = obstacles.indexOf(lightningStrike);
-        if (index > -1) {
-            obstacles.splice(index, 1);
+  return {
+    x: canvas.width / 2,
+    y: 0,
+    width: 9,
+    height: 200,
+    zigzagCounter: 0,
+    hasStruck: false,  // Add this line
+    update: function() {
+      let currentTime = Date.now();
+      if (!struckThisLevel && currentTime - levelStartedTime > 10000 && currentTime - lastStrikeTime > 11000) {
+        lastStrikeTime = currentTime;
+        flashCounter = 2;
+        struckThisLevel = true;
+        this.hasStruck = true;  // Add this line
+      }
+      if (flashCounter > 0) {
+        fadeAlpha = Math.max(0, fadeAlpha - 0.25);
+        if (fadeAlpha === 0) {
+          flashCounter--;
+          if (flashCounter > 0) {
+            fadeAlpha = 1;
+          }
         }
-    }, 500);  // Remove the lightning after 500 milliseconds
-}
-
-// Tornadoes
-function createTornadoObstacle(x, y) {
-    return {
-        x: x,
-        y: y,
-        update: function() {
-            this.x -= 2;
-            this.y += Math.sin(this.x) * 2;
-        },
-        draw: function(context) {
-            context.fillStyle = 'gray';
-            context.beginPath();
-            context.arc(this.x, this.y, 15, 0, Math.PI * 2);
-            context.fill();
-        }
-    };
-}
-
-// Wraiths
-function createWraithObstacle(x, y) {
-    return {
-        x: x,
-        y: y,
-        update: function() {
-            this.x -= 2;
-            this.y += Math.sin(this.x) * 5;
-        },
-        draw: function(context) {
-            context.fillStyle = 'purple';
-            context.beginPath();
-            context.arc(this.x, this.y, 15, 0, Math.PI * 2);
-            context.fill();
-        }
-    };
+      }
+    },
+    draw: function() {
+      if (flashCounter > 0) {
+        // ... (existing drawing code)
+      }
+    }
+  };
 }
 
 // Zombie Ghost Dragons
