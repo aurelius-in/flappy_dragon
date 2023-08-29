@@ -8,7 +8,7 @@ import {
     createWraithObstacle, createZombieDragonObstacle, createThundercloudObstacle, createFireballObstacle
 } from './obstacles.js';
 
-let obstacleSpawnTime = 4000, topObstacle = false, obstacleY, gameLoopCounter = 0, gameStarted = false, jump = 8, isFlapping = false, dragonFlapSpeed = 3;
+let obstacleSpawnTime = 4000, topObstacle = false, framesPerFlap = 150, obstacleY, gameLoopCounter = 0, gameStarted = false, jump = 8, isFlapping = false, dragonFlapSpeed = 3;
 
 // To prevent multiple jumps
 let jumpLock = false;
