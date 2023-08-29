@@ -159,7 +159,7 @@ function update() {
         perch.update();
 
         // Create new obstacles
-        if (gameLoopCounter % 180 === 0) { // Every 180 frames (approx 3 seconds)
+        if (gameLoopCounter % 180 === 0) { // Every 180 frames (3 seconds if 60 FPS)
             createObstacle();
         }
     }
