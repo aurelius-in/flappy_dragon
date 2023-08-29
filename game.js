@@ -8,12 +8,12 @@ import {
     createWraithObstacle, createZombieDragonObstacle, createThundercloudObstacle, createFireballObstacle
 } from './obstacles.js';
 
-let totalFrames = 12, topObstacle = false, obstacleY, spawnRate = 5, spawnTimer = 0, framesPerFlap = 1, flapCounter = 0, gameLoopCounter = 0, gameStarted = false, jump = 8, isFlapping = false, dragonFlapSpeed = 3;
-
-let jumpLock = false, lastFlapTime = 0;
+let totalFrames = 12, topObstacle = false, obstacleY, spawnRate = 5, spawnTimer = 0, framesPerFlap = 1, flapCounter = 0, gameLoopCounter = 0, gameStarted = false, jump = 8, isFlapping = false, dragonFlapSpeed = 3, jumpLock = false, lastFlapTime = 0;
 
 // Handle user input
 function handleInput(event) {
+    if (!event) return; // Add this line to handle undefined events
+
     if (event.type === 'keydown' && event.code === 'Space') {
         isFlapping = true;
         lastFlapTime = Date.now(); // Record the time when the user clicks
@@ -57,6 +57,14 @@ window.addEventListener('keydown', (e) => {
     if (e.code === 'Space') 
         handleInput();
 });
+
+// Update the event listeners to pass the event object to handleInput
+window.addEventListener('click', handleInput);
+window.addEventListener('touchstart', handleInput);
+window.addEventListener('keydown', handleInput);
+
+// Start the game loop
+gameLoop();
 
 function resetGame() {
     // Reset dragon's position to its starting position
