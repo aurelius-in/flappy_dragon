@@ -91,6 +91,13 @@ function createLightningStrikeObstacle() {
                 context.drawImage(boltImages[boltImages.length * 2 - 1 - this.frame], this.x, this.y, this.width, this.height);
             }
         }
+           draw: function(context) {
+        if (this.frame < boltImages.length) {
+            context.drawImage(boltImages[this.frame], this.x, this.y, this.width, this.height);
+        } else {
+            context.drawImage(boltImages[boltImages.length * 2 - 1 - this.frame], this.x, this.y, this.width, this.height);
+        }
+    },
     };
     return bolt;
 }
