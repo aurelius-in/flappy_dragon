@@ -1,4 +1,4 @@
-import { canvas, context, bolt, boltImages } from './init.js';  // Import canvas and context from init.js
+import { canvas, context, arrow, arrowImages, bolt, boltImages } from './init.js';  // Import canvas and context from init.js
 
 // Wraiths
 function createWraithObstacle(x, y) {
