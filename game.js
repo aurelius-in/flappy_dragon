@@ -145,13 +145,12 @@ function update() {
         backgrounds.bgbgX -= 0.1; // slowest
 
         // Update obstacles
-        obstacles.forEach((obstacle, index) => {
-            obstacle.x -= 1;  // Obstacle speed
-            obstacle.update();
+obstacles.forEach((obstacle, index) => {
+    obstacle.x -= 1;  // Obstacle speed
+    obstacle.update();
 
-           if (collisionDetected(dragon, obstacle)) {
-    if (!dragon.collided) {
-        if (!obstacle.hit) {
+    if (collisionDetected(dragon, obstacle)) {
+        if (!obstacle.hit) {  // Check if this obstacle has already hit the dragon
             lifeBar.segments -= 1;
             obstacle.hit = true;  // Mark the obstacle as having hit the dragon
         }
@@ -159,19 +158,9 @@ function update() {
             resetGame();
             lifeBar.segments = 10;  // Reset segments to 10
         }
-        obstacles.splice(index, 1);
-        dragon.collided = true;
-
-        setTimeout(() => {
-            dragon.collided = false;
-        }, 1000);
-
-        // Reset the obstacle hit flag 
-        // obstacle.hit = false;  // Reset the hit flag
+        obstacles.splice(index, 1);  // Remove the obstacle that has hit the dragon
     }
-}
-
-        });
+});
                 const currentTime = Date.now();
         if (currentTime - lastObstacleTime >= 2000) { // 2000ms = 2 seconds
             createObstacle();
