@@ -70,16 +70,20 @@ function createArrowObstacle(x, y) {
 
 // Lightning Strikes
 function createLightningStrikeObstacle() {
+    let localFlicker = true;  // Create a local variable for flicker
+    setTimeout(() => localFlicker = false, 1000);  // Set it to false after 1 second
+
     const bolt = {
         x: canvas.width,
         y: Math.random() * (canvas.height * 0.5),
-        width: 50,  // Set the width
-        height: 100,  // Set the height
+        width: 50,
+        height: 100,
         frame: 0,
-        boltCycles: 1,  // Number of cycles the animation should complete
+        boltCycles: 1,
         type: 'lightningStrike',
+        flicker: localFlicker,  // Use the local variable
         update: function() {
-            this.x -= 1;  // Move the obstacle to the left
+            this.x -= 1;
             this.frame = (this.frame + 1) % (boltImages.length * 2 * this.boltCycles);
             if (this.frame < boltImages.length) {
                 context.drawImage(boltImages[this.frame], this.x, this.y, this.width, this.height);
@@ -88,8 +92,6 @@ function createLightningStrikeObstacle() {
             }
         }
     };
-    flicker = true;
-    setTimeout(() => flicker = false, 1000);
     return bolt;
 }
 
