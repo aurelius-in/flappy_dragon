@@ -52,8 +52,8 @@ function createArrowObstacle(x, y) {
     return {
         x: x,
         y: y,
-        targetX: Math.random() * (canvas.width * 0.2), // Random location near the top left corner
-        targetY: Math.random() * (canvas.height * 0.2),
+        targetX: -100, // 100px to the left of the visible screen
+        targetY: -100, // 100px above the visible screen
         frame: 0,
         arrowCycles: 1,
         type: 'arrow',
@@ -66,7 +66,7 @@ function createArrowObstacle(x, y) {
             this.frame = (this.frame + 1) % (arrowImages.length * this.arrowCycles);
 
             // Remove the arrow if it's off-screen
-            if (this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) {
+            if (this.x < -100 || this.x > canvas.width + 100 || this.y < -100 || this.y > canvas.height + 100) {
                 const index = obstacles.indexOf(this);
                 if (index > -1) {
                     obstacles.splice(index, 1);
@@ -92,6 +92,7 @@ function createArrowObstacle(x, y) {
         }
     };
 }
+
 
 // Lightning Strikes
 function createLightningStrikeObstacle() {
