@@ -8,7 +8,7 @@ import {
     createWraithObstacle, createZombieDragonObstacle, createThundercloudObstacle, createFireballObstacle
 } from './obstacles.js';
 
-let obstacleSpawnTime = 4000, topObstacle = false, obstacleY, spawnRate = 5, spawnTimer = 0, framesPerFlap = 150, gameLoopCounter = 0, gameStarted = false, jump = 8, isFlapping = false, dragonFlapSpeed = 3;
+let totalFrames = 6, topObstacle = false, obstacleY, spawnRate = 5, spawnTimer = 0, framesPerFlap = 15, gameLoopCounter = 0, gameStarted = false, jump = 8, isFlapping = false, dragonFlapSpeed = 3;
 
 // To prevent multiple jumps
 let jumpLock = false;
@@ -26,13 +26,12 @@ function handleInput() {
     dragon.y += dragon.velocity;
     
     isFlapping = true;  // Set isFlapping to true when tapped
-    // console.log("handleInput called, isFlapping set to:", isFlapping);  // Debugging line
 
-    // Set isFlapping back to false after 12 frames have passed
+    // Reset frame to the first image after one loop
     setTimeout(() => {
+        frame.current = 0;
         isFlapping = false;
-        // console.log("Stopped flapping, isFlapping set to:", isFlapping);  // Debugging line
-    }, framesPerFlap / dragonFlapSpeed * 12);  // 12 frames
+    }, framesPerFlap * totalFrames);
 }
 
 // Event listeners for clicks and keydowns
@@ -51,7 +50,6 @@ function resetGame() {
     // Reset dragon's position to its starting position
     Object.assign(dragon, { x: perch.x, y: perchY - 125, velocity: 0, scale: 1, alpha: 1 });
     gameStarted = false;
-    obstacleSpawnTime = 4000;
     bg.width = canvas.height * 4;
     lifeBar.segments = 10;
 }
@@ -80,7 +78,6 @@ function createObstacle() {
 
     obstacles.push(obstacle);
     topObstacle = !topObstacle;
-    obstacleSpawnTime *= 0.999;
     obstacleY = Math.random() * (centerDistance - minDistance) + (topObstacle ? minDistance : centerDistance);
     console.log(`Created obstacle of type: ${randomType} at y-position: ${obstacleY}`);
 }
