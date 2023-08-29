@@ -64,10 +64,26 @@ window.addEventListener('keydown', (e) => {
 function resetGame() {
     // Reset dragon's position to its starting position
     Object.assign(dragon, { x: perch.x, y: perchY - 125, velocity: 0, scale: 1, alpha: 1 });
+    
+    // Reset game state variables
     gameStarted = false;
     obstacleSpawnTime = 4000;
     bg.width = canvas.height * 4;
     lifeBar.segments = 10;
+    gameLoopCounter = 0;
+    jump = 8;
+    isFlapping = false;
+    dragonFlapSpeed = 3;
+    jumpLock = false;
+    topObstacle = false;
+    framesPerFlap = 150;
+    obstacleY = null;
+    lastObstacleTime = 0;
+    levelEnding = false;
+    screenFade.alpha = 0;
+
+    // Clear existing obstacles
+    obstacles.length = 0;
 }
 
 function createObstacle() {
