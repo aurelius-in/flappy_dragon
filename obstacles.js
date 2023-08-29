@@ -48,7 +48,7 @@ function createBatSwarmObstacle(x, y) {
 }
 
 // Arrows
-function createArrowObstacle(x, y) {
+function createArrowObstacle(x, y, obstacles) {
     return {
         x: x,
         y: y,
@@ -92,6 +92,7 @@ function createArrowObstacle(x, y) {
         }
     };
 }
+
 
 
 // Lightning Strikes
