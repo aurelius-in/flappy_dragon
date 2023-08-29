@@ -83,9 +83,21 @@ function createLightningStrikeObstacle() {
         }
       }
     },
-    draw: function() {
+    draw: function(context) {
       if (flashCounter > 0) {
-        // ... (existing drawing code)
+        context.fillStyle = 'rgba(255, 255, 255, ' + fadeAlpha + ')';
+        context.fillRect(0, 0, canvas.width, canvas.height);
+      }
+      if (this.hasStruck) {
+        context.strokeStyle = 'yellow';
+        context.lineWidth = this.width;
+        context.beginPath();
+        context.moveTo(this.x, this.y);
+        for (let i = 0; i < this.height; i += 5) {
+          context.lineTo(this.x + Math.sin(this.zigzagCounter + i) * 20, this.y + i);
+        }
+        context.stroke();
+        this.zigzagCounter += 0.1;
       }
     }
   };
