@@ -128,10 +128,11 @@ function update() {
         // Update dragon
         dragon.update();
 
+        // Update backgrounds
         backgrounds.fgX -= 0.3; // slow
         backgrounds.bgX -= 0.2; // slower
         backgrounds.bgbgX -= 0.1; // slowest
- 
+
         // Update obstacles
         obstacles.forEach((obstacle, index) => {
             obstacle.x -= 1;  // Obstacle speed
@@ -159,11 +160,12 @@ function update() {
         perch.update();
 
         // Create new obstacles
-        if (gameLoopCounter % 180 === 0) { // Every 180 frames (3 seconds if 60 FPS)
+        if (gameLoopCounter % 180 === 0) { // Every 180 frames
             createObstacle();
         }
     }
 }
+
 
 if (backgrounds.fgX + bg.width <= canvas.width) {
     levelEnd();
