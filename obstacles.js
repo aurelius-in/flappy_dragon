@@ -79,17 +79,17 @@ function createLightningStrikeObstacle() {
   return {
     x: canvas.width / 2,
     y: 0,
-    width: 9,
+    width: 18,  // Make the line twice as thick
     height: 200,
     zigzagCounter: 0,
-    hasStruck: false,  // Add this line
+    hasStruck: false,
     update: function() {
       let currentTime = Date.now();
       if (!struckThisLevel && currentTime - levelStartedTime > 10000 && currentTime - lastStrikeTime > 11000) {
         lastStrikeTime = currentTime;
         flashCounter = 2;
         struckThisLevel = true;
-        this.hasStruck = true;  // Add this line
+        this.hasStruck = true;
       }
       if (flashCounter > 0) {
         fadeAlpha = Math.max(0, fadeAlpha - 0.25);
@@ -103,7 +103,7 @@ function createLightningStrikeObstacle() {
     },
     draw: function(context) {
       if (flashCounter > 0) {
-        context.fillStyle = 'rgba(255, 255, 255, ' + fadeAlpha + ')';
+        context.fillStyle = `rgba(255, 255, 255, ${fadeAlpha})`;
         context.fillRect(0, 0, canvas.width, canvas.height);
       }
       if (this.hasStruck) {
@@ -112,7 +112,7 @@ function createLightningStrikeObstacle() {
         context.beginPath();
         context.moveTo(this.x, this.y);
         for (let i = 0; i < this.height; i += 5) {
-          context.lineTo(this.x + Math.sin(this.zigzagCounter + i) * 20, this.y + i);
+          context.lineTo(this.x + Math.sin(this.zigzagCounter + i * 1.92) * 20, this.y + i);  // Adjust the angle
         }
         context.stroke();
         this.zigzagCounter += 0.1;
