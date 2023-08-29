@@ -22,7 +22,7 @@ export const bolt = { flicker : false };
 
 // Load the arrow images
 export const arrowImages = [];
-for (let i = 1; i <= 12; i++) {  // Assuming you have 12 arrow images
+for (let i = 1; i <= 10; i++) { 
     const image = new Image();
     image.src = `images/arrow${i}.png`;
     arrowImages.push(image);
