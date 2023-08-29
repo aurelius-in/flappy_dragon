@@ -20,6 +20,15 @@ import {
   screenFade
 } from './init.js';
 
+let flicker = false;
+
+function screenFlicker() {
+    if (flicker) {
+        context.fillStyle = 'rgba(255, 255, 255, 0.5)';
+        context.fillRect(0, 0, canvas.width, canvas.height);
+    }
+}
+
 // Draw objects
   export function draw() {
     // Draw the furthest back background (bgbg)
@@ -64,7 +73,6 @@ for (let i = 0; i < lifeBar.segments; i++) {
  // Draw the segment
  context.fillStyle = color;
  context.fillRect(10 + i * 35, 10, 35, 30);
-
 }
   // Draw the "TAP TO FLY!" text
 if (tapToFly.alpha > 0) {
@@ -74,10 +82,11 @@ if (tapToFly.alpha > 0) {
     context.fillText('TAP TO FLY!', canvas.width / 2, canvas.height / 2);
 }
 
-
-  
-
-    // Draw black fade overlay
+   // Draw black fade overlay
     context.fillStyle = `rgba(0, 0, 0, ${screenFade.alpha})`;
     context.fillRect(0, 0, canvas.width, canvas.height);
+
+    screenFlicker();
 }
+
+
