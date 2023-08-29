@@ -14,16 +14,15 @@ import {
   perchWidth,
   perchHeight,
   dragon,
+  bolt,
   tapToFly,
   perch,
   lifeBar,
   screenFade
 } from './init.js';
 
-let flicker = false;
-
 function screenFlicker() {
-    if (flicker) {
+    if (bolt.flicker) {
         context.fillStyle = 'rgba(255, 255, 255, 0.5)';
         context.fillRect(0, 0, canvas.width, canvas.height);
     }
