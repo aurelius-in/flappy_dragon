@@ -83,8 +83,8 @@ function resetGame() {
     backgrounds.fgX = 0;
 
     // Reset perch to its original position
-    perch.x = /* Your original perch.x value here */;
-    perch.y = /* Your original perch.y value here */;
+    perch.x = 50;  // Original x-coordinate based on game_backup.js
+    perch.y = perchY;  // Assuming perchY is the original y-coordinate
 
     // Clear existing obstacles
     obstacles.length = 0;
