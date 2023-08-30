@@ -249,17 +249,20 @@ function levelEnd() {
     // Fade to black and start level 2
     if (levelEndTime >= 500) {
         screenFade.alpha += 0.01;
-        if (screenFade.alpha >= 1) {
-            // Reset game and start level 2
-            resetGame();
-            level = 2;
-            backgrounds.bgImage.src = `images/bg${level}.png`;
-            backgrounds.fgImage.src = `images/fg${level}.png`;
-            backgrounds.bgbgImage.src = `images/bgbg${level}.png`;
-        }
+       // Check if the screen has fully faded to black
+    if (screenFade.alpha >= 1) {
+        setTimeout(() => {
+            
+            level++; // Increment the level
+            resetGame(); // Reset the game state
+
+            // Dynamically update the background images based on the new level
+            backgrounds.bgImage = eval(`bg${level}`);
+            backgrounds.bgbgImage = eval(`bgbg${level}`);
+            backgrounds.fgImage = eval(`fg${level}`);
+        }, 2000);
     }
 }
-
 
 function gameLoop() {
     update();
