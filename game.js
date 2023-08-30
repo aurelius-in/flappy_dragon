@@ -63,9 +63,9 @@ window.addEventListener('keydown', (e) => {
 
 function resetGame() {
     // Reset dragon's position to its starting position
-    Object.assign(dragon, { 
-        x: perchX, 
-        y: perchY - 125, 
+        Object.assign(dragon, { 
+        x: perch.x, 
+        y: perchY - dragon.height, 
         velocity: 0, 
         width: 150, 
         height: 150, 
