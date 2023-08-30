@@ -7,13 +7,25 @@ canvas.height = window.innerHeight;
 // Dragon's Perch
 export const perchImage = new Image(); perchImage.src = 'images/perch.png';
 
-// Background Images
-export const bg1 = new Image(); bg1.src = 'images/bg1.png';
-export const fg1 = new Image(); fg1.src = 'images/fg1.png';
-export const bgbg1 = new Image(); bgbg1.src = 'images/bgbg1.png';
-export const bg2 = new Image(); bg2.src = 'images/bg2.png';
-export const fg2 = new Image(); fg2.src = 'images/fg2.png';
-export const bgbg2 = new Image(); bgbg2.src = 'images/bgbg2.png';
+// Initialize arrays to hold Image objects for each level
+export const bgImage = [];
+export const fgImage = [];
+export const bgbgImage = [];
+
+// Populate the arrays with Image objects for four levels
+for (let i = 1; i <= 4; i++) {
+    const bg = new Image();
+    bg.src = `images/bg${i}.png`;
+    bgImage.push(bg);
+
+    const fg = new Image();
+    fg.src = `images/fg${i}.png`;
+    fgImage.push(fg);
+
+    const bgbg = new Image();
+    bgbg.src = `images/bgbg${i}.png`;
+    bgbgImage.push(bgbg);
+}
 
 // Load the lightning bolt images
 export const boltImages = [];
