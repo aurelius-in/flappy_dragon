@@ -67,11 +67,8 @@ function resetGame() {
     
     // Reset game state variables
     gameStarted = false;
-    obstacleSpawnTime = 4000;
-    bg.width = canvas.height * 4;
     lifeBar.segments = 10;
     gameLoopCounter = 0;
-    jump = 8;
     isFlapping = false;
     dragonFlapSpeed = 3;
     jumpLock = false;
@@ -79,8 +76,15 @@ function resetGame() {
     framesPerFlap = 150;
     obstacleY = null;
     lastObstacleTime = 0;
-    levelEnding = false;
-    screenFade.alpha = 0;
+
+    // Reset backgrounds to original positions
+    backgrounds.bgbgX = 0;
+    backgrounds.bgX = 0;
+    backgrounds.fgX = 0;
+
+    // Reset perch to its original position
+    perch.x = /* Your original perch.x value here */;
+    perch.y = /* Your original perch.y value here */;
 
     // Clear existing obstacles
     obstacles.length = 0;
