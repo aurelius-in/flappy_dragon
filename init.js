@@ -8,12 +8,12 @@ canvas.height = window.innerHeight;
 export const perchImage = new Image(); perchImage.src = 'images/perch.png';
 
 // Background Images
-export const bgImage = new Image(); bgImage.src = 'images/bg1.png';
-export const fgImage = new Image(); fgImage.src = 'images/fg1.png';
-export const bgbgImage = new Image(); bgbgImage.src = 'images/bgbg1.png';
-export const bg2Image = new Image(); bg2Image.src = 'images/bg2.png';
-export const bgbg2Image = new Image(); bgbg2Image.src = 'images/bgbg2.png';
-export const fg2Image = new Image(); fg2Image.src = 'images/fg2.png';
+export const bg1 = new Image(); bg1.src = 'images/bg1.png';
+export const fg1 = new Image(); fg1.src = 'images/fg1.png';
+export const bgbg1 = new Image(); bgbg1.src = 'images/bgbg1.png';
+export const bg2 = new Image(); bg2.src = 'images/bg2.png';
+export const fg2 = new Image(); fg2.src = 'images/fg2.png';
+export const bgbg2 = new Image(); bgbg2.src = 'images/bgbg2.png';
 
 // Load the lightning bolt images
 export const boltImages = [];
