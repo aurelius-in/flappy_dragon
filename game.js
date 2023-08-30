@@ -210,11 +210,9 @@ obstacles.forEach((obstacle, index) => {
             // createObstacle();
         }
     }
-}
-
-
-if (backgrounds.fgX + bg.width <= canvas.width) {
+    if (backgrounds.fgX + bg.width <= canvas.width) {
     levelEnd();
+}
 }
 
 let levelEnding = false;  // Add this flag to indicate when the level is ending
