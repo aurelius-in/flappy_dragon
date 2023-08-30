@@ -1,6 +1,6 @@
 import {
-    bg, canvas, context, perchY, perchWidth, perchHeight, screenFade, bolt, arrow, arrowImages,
-    dragon, dragonImages, perch, obstacles, lifeBar, tapToFly, backgrounds, frame
+    bg, canvas, context, perchY, perch, perchWidth, perchHeight, screenFade, bolt, arrow, arrowImages, bgImage, fgImage, bgbgImage,
+    dragon, dragonImages, obstacles, lifeBar, tapToFly, backgrounds, frame
 } from './init.js';
 
 import { draw } from './render.js';
