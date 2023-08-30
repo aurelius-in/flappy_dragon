@@ -4,11 +4,16 @@ export const context = canvas.getContext('2d');
 canvas.width = window.innerWidth;
 canvas.height = window.innerHeight;
 
-// Images
+// Dragon's Perch
 export const perchImage = new Image(); perchImage.src = 'images/perch.png';
-export const bgImage = new Image(); bgImage.src = 'images/bg.png';
-export const fgImage = new Image(); fgImage.src = 'images/fg.png';
-export const bgbgImage = new Image(); bgbgImage.src = 'images/bgbg.png';
+
+// Background Images
+export const bgImage = new Image(); bgImage.src = 'images/bg1.png';
+export const fgImage = new Image(); fgImage.src = 'images/fg1.png';
+export const bgbgImage = new Image(); bgbgImage.src = 'images/bgbg1.png';
+export const bg2Image = new Image(); bg2Image.src = 'images/bg2.png';
+export const bgbg2Image = new Image(); bgbg2Image.src = 'images/bgbg2.png';
+export const fg2Image = new Image(); fg2Image.src = 'images/fg2.png';
 
 // Load the lightning bolt images
 export const boltImages = [];
