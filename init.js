@@ -114,6 +114,5 @@ export function updateDimensions() {
     bolt.width = canvas.height * 0.1;  // 10% of canvas height
     bolt.height = canvas.height * 0.2; // 20% of canvas height
 
-    // Update other elements as needed...
 }
 
