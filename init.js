@@ -86,3 +86,34 @@ export const backgrounds = {
 
 // Life Bar
 export const lifeBar = { segments: 10 };
+
+// Dimensions
+export function updateDimensions() {
+    // Update canvas dimensions
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // Update background dimensions
+    backgrounds.height = canvas.height;
+    bg.width = canvas.height * 4;
+
+    // Update dragon dimensions
+    dragon.width = canvas.height * 0.075;  // 7.5% of canvas height
+    dragon.height = canvas.height * 0.075; // 7.5% of canvas height
+
+    // Update perch dimensions
+    perchWidth = canvas.height * 0.075;  // 7.5% of canvas height
+    perchHeight = canvas.height * 0.125; // 12.5% of canvas height
+    perchY = canvas.height - perchHeight;
+
+    // Update arrow dimensions
+    arrow.width = canvas.height * 0.05;  // 5% of canvas height
+    arrow.height = canvas.height * 0.05; // 5% of canvas height
+
+    // Update lightning dimensions
+    bolt.width = canvas.height * 0.1;  // 10% of canvas height
+    bolt.height = canvas.height * 0.2; // 20% of canvas height
+
+    // Update other elements as needed...
+}
+
