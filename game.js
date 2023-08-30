@@ -63,7 +63,15 @@ window.addEventListener('keydown', (e) => {
 
 function resetGame() {
     // Reset dragon's position to its starting position
-    Object.assign(dragon, { x: perch.x, y: perchY - 125, velocity: 0, scale: 1, alpha: 1 });
+    Object.assign(dragon, { 
+        x: perchX, 
+        y: perchY - 125, 
+        velocity: 0, 
+        width: 150, 
+        height: 150, 
+        alpha: 1, 
+        scale: 1 
+    });
     
     // Reset game state variables
     gameStarted = false;
