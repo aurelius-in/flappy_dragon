@@ -9,7 +9,7 @@ import {
     createWraithObstacle, createZombieDragonObstacle, createThundercloudObstacle, createFireballObstacle
 } from './obstacles.js';
 
-let obstacleSpawnTime = 4000, topObstacle = false, framesPerFlap = 150, obstacleY, gameLoopCounter = 0, gameStarted = false, jump = 8, isFlapping = false, dragonFlapSpeed = 3;
+let level=1, obstacleSpawnTime = 4000, topObstacle = false, framesPerFlap = 150, obstacleY, gameLoopCounter = 0, gameStarted = false, jump = 8, isFlapping = false, dragonFlapSpeed = 3;
 
 // To prevent multiple jumps
 let jumpLock = false;
@@ -252,9 +252,10 @@ function levelEnd() {
         if (screenFade.alpha >= 1) {
             // Reset game and start level 2
             resetGame();
-            backgrounds.bgImage.src = 'images/bg2.png';
-            backgrounds.bgbgImage.src = 'images/bgbg2.png';
-            backgrounds.fgImage.src = 'images/fg2.png';
+            level = 2;
+            backgrounds.bgImage.src = `images/bg${level}.png`;
+            backgrounds.fgImage.src = `images/fg${level}.png`;
+            backgrounds.bgbgImage.src = `images/bgbg${level}.png`;
         }
     }
 }
