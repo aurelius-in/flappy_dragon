@@ -229,38 +229,39 @@ let levelEndTime = 0;
 
 function levelEnd() {
     levelEnding = true;
-    levelEndTime += 1; // Increment the time counter
+    levelEndTime += 1;
 
-    // Make the dragon shrink and move to the center
     dragon.scale -= 0.005;
     const targetX = canvas.width / 2 - dragon.width / 2;
     const targetY = canvas.height / 2 - dragon.height / 2;
     dragon.x += (targetX - dragon.x) * 0.05;
     dragon.y += (targetY - dragon.y) * 0.05;
 
-    // Make the dragon flap its wings (animate)
     frame.current = (frame.current + 1) % dragonImages.length;
 
-    // Fade the dragon out in the last 2 seconds
     if (levelEndTime >= 300) {
         dragon.alpha -= 0.005;
     }
 
-    // Fade to black and start level 2
     if (levelEndTime >= 500) {
         screenFade.alpha += 0.01;
-       // Check if the screen has fully faded to black
-    if (screenFade.alpha >= 1) {
-        setTimeout(() => {
-            
-            level++; // Increment the level
-            resetGame(); // Reset the game state
 
-            // Dynamically update the background images based on the new level
-            backgrounds.bgImage = eval(`bg${level}`);
-            backgrounds.bgbgImage = eval(`bgbg${level}`);
-            backgrounds.fgImage = eval(`fg${level}`);
-        }, 2000);
+        if (screenFade.alpha >= 1) {
+            setTimeout(() => {
+                level++;
+                resetGame();
+
+                // Update the background images
+                backgrounds.bgImage = bgImage[level - 1];
+                backgrounds.bgbgImage = bgbgImage[level - 1];
+                backgrounds.fgImage = fgImage[level - 1];
+                
+                // Reset level ending variables
+                levelEnding = false;
+                levelEndTime = 0;
+                screenFade.alpha = 0;
+            }, 3000);
+        }
     }
 }
 
