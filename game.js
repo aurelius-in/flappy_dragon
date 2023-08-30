@@ -228,7 +228,8 @@ let levelEnding = false;  // Add this flag to indicate when the level is ending
 function levelEnd() {
     levelEnding = true;  // Set the flag to true
     
-    dragon.scale += 0.005;
+    // Make the dragon shrink and fade out
+    dragon.scale -= 0.005;
     dragon.alpha -= 0.005;
     screenFade.alpha += 0.01;
 
@@ -238,6 +239,7 @@ function levelEnd() {
     dragon.x += (targetX - dragon.x) * 0.05;
     dragon.y += (targetY - dragon.y) * 0.05;
 
+    // Reset the game when the screen is fully faded
     if (screenFade.alpha >= 1) {
         setTimeout(resetGame, 2000);
     }
