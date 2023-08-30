@@ -225,25 +225,40 @@ obstacles.forEach((obstacle, index) => {
 
 let levelEnding = false;  // Add this flag to indicate when the level is ending
 
-function levelEnd() {
-    levelEnding = true;  // Set the flag to true
-    
-    // Make the dragon shrink and fade out
-    dragon.scale -= 0.005;
-    dragon.alpha -= 0.005;
-    screenFade.alpha += 0.01;
+let levelEndTime = 0;
 
-    // Make the dragon fly to the center of the screen
+function levelEnd() {
+    levelEnding = true;
+    levelEndTime += 1; // Increment the time counter
+
+    // Make the dragon shrink and move to the center
+    dragon.scale -= 0.005;
     const targetX = canvas.width / 2 - dragon.width / 2;
     const targetY = canvas.height / 2 - dragon.height / 2;
     dragon.x += (targetX - dragon.x) * 0.05;
     dragon.y += (targetY - dragon.y) * 0.05;
 
-    // Reset the game when the screen is fully faded
-    if (screenFade.alpha >= 1) {
-        setTimeout(resetGame, 2000);
+    // Make the dragon flap its wings (animate)
+    frame.current = (frame.current + 1) % dragonImages.length;
+
+    // Fade the dragon out in the last 2 seconds
+    if (levelEndTime >= 300) {
+        dragon.alpha -= 0.005;
+    }
+
+    // Fade to black and start level 2
+    if (levelEndTime >= 500) {
+        screenFade.alpha += 0.01;
+        if (screenFade.alpha >= 1) {
+            // Reset game and start level 2
+            resetGame();
+            backgrounds.bgImage.src = 'images/bg2.png';
+            backgrounds.bgbgImage.src = 'images/bgbg2.png';
+            backgrounds.fgImage.src = 'images/fg2.png';
+        }
     }
 }
+
 
 function gameLoop() {
     update();
