@@ -86,3 +86,6 @@ export const backgrounds = {
 
 // Life Bar
 export const lifeBar = { segments: 10 };
+
+// Level 
+export let currentLevel = 1;
