@@ -1,6 +1,6 @@
 import {
-    bg, canvas, context, perchY, perch, perchWidth, perchHeight, screenFade, bolt, arrow, arrowImages, bgImage, fgImage, bgbgImage,
-    dragon, dragonImages, obstacles, lifeBar, tapToFly, backgrounds, frame
+    bg, canvas, context, perchY, perchWidth, perchHeight, screenFade, bolt, arrow, arrowImages,
+    dragon, dragonImages, perch, obstacles, lifeBar, tapToFly, backgrounds, frame
 } from './init.js';
 
 import { draw } from './render.js';
@@ -9,7 +9,7 @@ import {
     createWraithObstacle, createZombieDragonObstacle, createThundercloudObstacle, createFireballObstacle
 } from './obstacles.js';
 
-let level=1, obstacleSpawnTime = 4000, topObstacle = false, framesPerFlap = 150, obstacleY, gameLoopCounter = 0, gameStarted = false, jump = 8, isFlapping = false, dragonFlapSpeed = 3;
+let obstacleSpawnTime = 4000, topObstacle = false, framesPerFlap = 150, obstacleY, gameLoopCounter = 0, gameStarted = false, jump = 8, isFlapping = false, dragonFlapSpeed = 3;
 
 // To prevent multiple jumps
 let jumpLock = false;
@@ -225,43 +225,23 @@ obstacles.forEach((obstacle, index) => {
 
 let levelEnding = false;  // Add this flag to indicate when the level is ending
 
-let levelEndTime = 0;
-
 function levelEnd() {
-    levelEnding = true;
-    levelEndTime += 1;
-
+    levelEnding = true;  // Set the flag to true
+    
+    // Make the dragon shrink and fade out
     dragon.scale -= 0.005;
+    dragon.alpha -= 0.005;
+    screenFade.alpha += 0.01;
+
+    // Make the dragon fly to the center of the screen
     const targetX = canvas.width / 2 - dragon.width / 2;
     const targetY = canvas.height / 2 - dragon.height / 2;
     dragon.x += (targetX - dragon.x) * 0.05;
     dragon.y += (targetY - dragon.y) * 0.05;
 
-    frame.current = (frame.current + 1) % dragonImages.length;
-
-    if (levelEndTime >= 300) {
-        dragon.alpha -= 0.005;
-    }
-
-    if (levelEndTime >= 500) {
-        screenFade.alpha += 0.01;
-
-        if (screenFade.alpha >= 1) {
-            setTimeout(() => {
-                level++;
-                resetGame();
-
-                // Update the background images
-                backgrounds.bgImage = bgImage[level - 1];
-                backgrounds.bgbgImage = bgbgImage[level - 1];
-                backgrounds.fgImage = fgImage[level - 1];
-                
-                // Reset level ending variables
-                levelEnding = false;
-                levelEndTime = 0;
-                screenFade.alpha = 0;
-            }, 3000);
-        }
+    // Reset the game when the screen is fully faded
+    if (screenFade.alpha >= 1) {
+        setTimeout(resetGame, 2000);
     }
 }
 
