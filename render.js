@@ -32,16 +32,13 @@ function screenFlicker() {
   export function draw() {
     // Draw the furthest back background (bgbg)
     context.drawImage(bgbgImage, backgrounds.bgbgX, 0, bg.width, backgrounds.height);
-    context.drawImage(backgrounds.bgbgImage, backgrounds.bgbgX, 0, bg.width, backgrounds.height);
-    
+
     // Draw the middle background (bg)
     context.drawImage(bgImage, backgrounds.bgX, 0, bg.width, backgrounds.height);
-    context.drawImage(backgrounds.bgImage, backgrounds.bgX, 0, bg.width, backgrounds.height);
 
     // Draw the closest background (fg)
     context.drawImage(fgImage, backgrounds.fgX, 0, bg.width, backgrounds.height);
-    context.drawImage(backgrounds.fgImage, backgrounds.fgX, 0, bg.width, backgrounds.height);
-    
+
     // Draw perch
     context.drawImage(perchImage, perch.x, perchY, perchWidth, perchHeight);
 
@@ -84,7 +81,7 @@ if (tapToFly.alpha > 0) {
     context.fillText('TAP TO FLY!', canvas.width / 2, canvas.height / 2);
 }
 
-   // Draw black fade1 overlay
+   // Draw black fade overlay
     context.fillStyle = `rgba(0, 0, 0, ${screenFade.alpha})`;
     context.fillRect(0, 0, canvas.width, canvas.height);
 
