@@ -63,15 +63,7 @@ window.addEventListener('keydown', (e) => {
 
 function resetGame() {
     // Reset dragon's position to its starting position
-    Object.assign(dragon, { 
-        x: perchX, 
-        y: perchY - 125, 
-        velocity: 0, 
-        width: 150, 
-        height: 150, 
-        alpha: 1, 
-        scale: 1 
-    });
+    Object.assign(dragon, { x: perch.x, y: perchY - 125, velocity: 0, scale: 1, alpha: 1 });
     
     // Reset game state variables
     gameStarted = false;
@@ -218,9 +210,11 @@ obstacles.forEach((obstacle, index) => {
             // createObstacle();
         }
     }
-    if (backgrounds.fgX + bg.width <= canvas.width) {
-    levelEnd();
 }
+
+
+if (backgrounds.fgX + bg.width <= canvas.width) {
+    levelEnd();
 }
 
 let levelEnding = false;  // Add this flag to indicate when the level is ending
@@ -228,8 +222,7 @@ let levelEnding = false;  // Add this flag to indicate when the level is ending
 function levelEnd() {
     levelEnding = true;  // Set the flag to true
     
-    // Make the dragon shrink and fade out
-    dragon.scale -= 0.005;
+    dragon.scale += 0.005;
     dragon.alpha -= 0.005;
     screenFade.alpha += 0.01;
 
@@ -239,7 +232,6 @@ function levelEnd() {
     dragon.x += (targetX - dragon.x) * 0.05;
     dragon.y += (targetY - dragon.y) * 0.05;
 
-    // Reset the game when the screen is fully faded
     if (screenFade.alpha >= 1) {
         setTimeout(resetGame, 2000);
     }
